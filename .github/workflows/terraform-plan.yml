@@ -6,7 +6,7 @@ on:
 env:
   TF_CLOUD_ORGANIZATION: "abcaballero"
   TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
-  TF_WORKSPACE: "cloud-resume"
+  TF_WORKSPACE: "acaballero-cloud-resume"
   CONFIG_DIRECTORY: "./"
 
 jobs:
