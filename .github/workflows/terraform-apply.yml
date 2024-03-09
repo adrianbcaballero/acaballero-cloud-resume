@@ -47,14 +47,13 @@ jobs:
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
 
       - name: Clear objects in S3 branch
-        uses: keithweaver/aws-s3-github-action@v1.0.0
+        uses: vitorsgomes/s3-rm-action@master
         with:
-          command: cp
-          source: resume-frontend
-          destination: s3://adriancaballero-branchcontent
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: us-west-1
+          args: --recursive
+        env:
+          AWS_S3_BUCKET: "acaballero-cloud-resume"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Upload fronted to S3 branch content bucket
         uses: shallwefootball/s3-upload-action@master
