@@ -47,13 +47,12 @@ jobs:
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
 
       - name: Clear objects in S3 branch
-        uses: vitorsgomes/s3-rm-action@master
+        uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
-          args: --recursive
-        env:
-          AWS_S3_BUCKET: adriancaballero-branchcontent
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          command: rm s3://adriancaballero-branchcontent/doc --recursive
+          source:
+          aws_access_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 
       - name: Upload fronted to S3 branch content bucket
         uses: shallwefootball/s3-upload-action@master
