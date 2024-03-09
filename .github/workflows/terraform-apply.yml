@@ -43,3 +43,13 @@ jobs:
         with:
           run: ${{ steps.apply-run.outputs.run_id }}
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+
+      - name: Sync frontend to branch bucket
+        uses: jakejarvis/s3-sync-action@master
+        id: frontend-upload
+        env:
+          SOURCE_DIR: './resume-frontend'
+          AWS_REGION: 'us-west-1'
+          AWS_S3_BUCKET: '[adriancaballero-branchcontent]'
+
+  
