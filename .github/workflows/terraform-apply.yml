@@ -54,5 +54,3 @@ jobs:
           aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: adriancaballero-branchcontent
           source_dir: resume-frontend
-
-  
