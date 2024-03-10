@@ -121,7 +121,7 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 data "archive_file" "lambda-sync-s3" {
   type = "zip"
   source_file = "${path.module}/backend/lambda-sync-s3website.py"
-  output_path = "${path.module}/lambda-sync-s3website.zip"
+  output_path = "lambda-sync-s3website.zip"
   output_file_mode = 0666
 }
 
@@ -132,16 +132,17 @@ resource "aws_cloudwatch_log_group" "lambda_logs" {
 //creating lambda function to move to s3 website, cloudwatch logs, sns
 resource "aws_lambda_function" "website-s3-sync" {
   function_name = "lambda_function_syncs3"
-  filename = data.archive_file.lambda-sync-s3.output_path 
+  filename = "lambda-sync-s3website.zip"
   role = aws_iam_role.lambda_role.arn
   runtime = "python3.9"
-  handler = "backend.lambda-sync-s3website.lambda_handler"
+  handler = "lambda-sync-s3website.lambda_handler"
   source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+  timeout = 10
 
   environment {
     variables = {
-      s3_sync_website = aws_cloudwatch_log_group.lambda_logs.name
+      websites3-sync-lambda = aws_cloudwatch_log_group.lambda_logs.name
     }
   }
 }
