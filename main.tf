@@ -142,7 +142,7 @@ resource "aws_lambda_function" "website-s3-sync" {
 
   environment {
     variables = {
-      websites3-sync-lambda = aws_cloudwatch_log_group.lambda_logs.name
+      websites3_sync_lambda = aws_cloudwatch_log_group.lambda_logs.name
     }
   }
 }

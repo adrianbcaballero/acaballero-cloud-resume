@@ -7,7 +7,7 @@ import os
 s3 = boto3.client('s3')
 sns = boto3.client('sns')
 sns_topic_arn = "${sns_topic_arn}"
-s3_sync_website = os.environ.get('websites3-sync-lambda')
+s3_sync_website = os.environ.get('websites3_sync_lambda')
 
 def lambda_handler(event, context):
     bucket = event['Records'][0]['s3']['bucket']['name']
