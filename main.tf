@@ -124,6 +124,10 @@ data "archive_file" "lambda-sync-s3" {
   output_path = "lambda_function_syncs3.zip"
 }
 
+resource "aws_cloudwatch_log_group" "lambda_logs" {
+  name = "/aws/lambda/websites3-sync-lambda" 
+}
+
 //creating lambda function to move to s3 website, cloudwatch logs, sns
 resource "aws_lambda_function" "website-s3-sync" {
   filename = "lambda_function_syncs3.zip"
@@ -134,6 +138,13 @@ resource "aws_lambda_function" "website-s3-sync" {
   source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   runtime = "python3.9"
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+
+  environment {
+    variables = {
+      s3_sync_website = aws_cloudwatch_log_group.lambda_logs.name
+    }
+  }
+  
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
@@ -142,6 +153,8 @@ resource "aws_lambda_permission" "allow_bucket" {
   function_name = aws_lambda_function.website-s3-sync.function_name
   principal     = "s3.amazonaws.com"
   source_arn    = aws_s3_bucket.adriancaballero-branchcontent.arn
+  
+  
 }
 
 //add s3 trigger to lambda 
@@ -154,3 +167,5 @@ resource "aws_s3_bucket_notification" "trigger_lambdas3sync" {
 
   }
 }
+
+//
