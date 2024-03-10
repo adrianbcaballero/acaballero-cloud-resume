@@ -136,9 +136,17 @@ resource "aws_lambda_function" "website-s3-sync" {
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }
 
+resource "aws_lambda_permission" "allow_bucket" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.website-s3-sync.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.adriancaballero-branchcontent.arn
+}
+
 //add s3 trigger to lambda 
 resource "aws_s3_bucket_notification" "trigger_lambdas3sync" {
-  bucket = "adriancaballero-branchcontent" 
+  bucket = aws_s3_bucket.adriancaballero-branchcontent.id
 
   lambda_function {
     lambda_function_arn = aws_lambda_function.website-s3-sync.arn
