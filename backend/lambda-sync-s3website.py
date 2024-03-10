@@ -1,24 +1,10 @@
 import json
-import time
-import urllib.parse
 import boto3
-import os
-import logging
-import uuid
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
-sns = boto3.client('sns')
-sns_topic_arn = "${sns_topic_arn}"
-
-response = s3.list_objects_v2(Bucket=source_bucket_name)
 
 def lambda_handler(event, context):
     source_bucket_name = 'adriancaballero-branchcontent'
     destination_bucket_name = 'www.adriancaballeroresume.com'
     s3 = boto3.client('s3')
-
 
     try:
         response = s3.list_objects_v2(Bucket=source_bucket_name)
@@ -40,16 +26,8 @@ def lambda_handler(event, context):
             'body': json.dumps('Files copied successfully!')
         }
 
-
-        print(response)
-        logger.info("File copied to the destination bucket successfully!")
-
-        #publish message to SNS 
-        message = f"Updated website content"
-        sns.publish(TopicArn=sns_topic_arn, Message=message, Subject="Updated Website contents")
-    
     except Exception as e:
         # Log error message
-        logger.error("Not run")
-
+        print("An error occurred:", str(e))
         raise e
+
