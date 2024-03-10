@@ -31,8 +31,14 @@ def lambda_handler(event, context):
         message = f"Updated website content"
         sns.publish(TopicArn=sns_topic_arn, Message=message, Subject="Updated Website contents")
 
-        #basic logs if successful
-        cloudwatch_logs.put_log_events(logGroupName=s3_sync_website, logEvents=[{'timestamp': int(round(time.time() * 1000))}])
+        # logs if successful
+        log_stream_name = context.aws_request_id
+
+        # Initialize CloudWatch Logs client
+        cloudwatch_logs = boto3.client('logs')
+
+        # Put log events
+        cloudwatch_logs.put_log_events(logGroupName=s3_sync_website, logStreamName=log_stream_name, logEvents=[{'timestamp': int(round(time.time() * 1000)), 'message': "Website syncing completed successfully"}])
     
     except Exception as e:
         # Log error message
@@ -40,9 +46,8 @@ def lambda_handler(event, context):
 
         # Log the error
         if s3_sync_website:
-            cloudwatch_logs = boto3.client('logs')
             log_message = f"Error in website syncing: {str(e)}"
-            cloudwatch_logs.put_log_events(logGroupName=s3_sync_website, logEvents=[{'message': log_message, 'timestamp': int(round(time.time() * 1000))}])
+            cloudwatch_logs.put_log_events(logGroupName=s3_sync_website, logStreamName=log_stream_name, logEvents=[{'timestamp': int(round(time.time() * 1000)), 'message': log_message}])
         
         raise e
               
