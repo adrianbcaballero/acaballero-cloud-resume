@@ -7,6 +7,28 @@ resource "aws_s3_bucket" "adriancaballero-branchcontent" {
   bucket = "adriancaballero-branchcontent"
 }
 
+resource "aws_s3_bucket_policy" "lambda_access_policy" {
+  bucket = aws_s3_bucket.adriancaballero-branchcontent.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLambdaAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Action": "s3:*",
+      "Resource": "${aws_s3_bucket.adriancaballero-branchcontent.arn}/*"
+    }
+  ]
+}
+EOF
+}
+
+
 resource "aws_s3_bucket_public_access_block" "adriancaballero-branchcontent" {
   bucket = aws_s3_bucket.adriancaballero-branchcontent.id
 
