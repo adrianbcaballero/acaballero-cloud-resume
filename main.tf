@@ -45,7 +45,7 @@ resource "aws_sns_topic" "owner_updates" {
 resource "aws_sns_topic_subscription" "owner_updates_email_target" {
   topic_arn = aws_sns_topic.owner_updates.arn
   protocol  = "email"
-  endpoint  = "acaballero.py@gmail.com"
+  endpoint  = "abcaballero.py@gmail.com"
 }
 
 output "sns_topic_arn" {
