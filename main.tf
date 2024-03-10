@@ -133,7 +133,7 @@ resource "aws_lambda_function" "website-s3-sync" {
   filename = "lambda_function_syncs3.zip"
   function_name = "lambda_function_syncs3"
   role = aws_iam_role.lambda_role.arn
-  handler = "lambda_handler"
+  handler = "lambda_function_syncs3.lambda_handler"
 
   source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   runtime = "python3.9"
