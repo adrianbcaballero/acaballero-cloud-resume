@@ -93,12 +93,21 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
     },
     {
       "Effect": "Allow",
-      "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::www.adriancaballeroresume.com/*"
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::www.adriancaballeroresume.com",
+        "arn:aws:s3:::www.adriancaballeroresume.com/*"
+      ]
     },
     {
       "Effect": "Allow",
       "Action": "s3:GetObject",
+      "s3:*"
       "Resource": "arn:aws:s3:::adriancaballero-branchcontent/*"
     },
     {
@@ -110,6 +119,7 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
 }
 EOF
 }
+
 
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
   role        = aws_iam_role.lambda_role.name
