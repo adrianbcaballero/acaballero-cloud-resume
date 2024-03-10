@@ -153,8 +153,6 @@ resource "aws_lambda_permission" "allow_bucket" {
   function_name = aws_lambda_function.website-s3-sync.function_name
   principal     = "s3.amazonaws.com"
   source_arn    = aws_s3_bucket.adriancaballero-branchcontent.arn
-  
-  
 }
 
 //add s3 trigger to lambda 
