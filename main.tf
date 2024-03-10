@@ -96,7 +96,7 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 
 
 //zipping python initial lambda file 
-data "archive_file" "lamda-sync-s3" {
+data "archive_file" "lambda-sync-s3" {
   type = "zip"
   source_file = "/backend/lambda-sync-s3website.py"
   output_path = "lambda_function_syncs3.zip"
