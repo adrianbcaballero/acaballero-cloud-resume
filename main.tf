@@ -120,7 +120,7 @@ resource "aws_s3_bucket_notification" "trigger_lambdas3sync" {
 
   lambda_function {
     lambda_function_arn = aws_lambda_function.website-s3-sync.arn
-    events              = ["s3:ObjectCreated:*", "s3:ObjectUpdated:*"]
+    events              = ["s3:ObjectCreated:*", "s3:ObjectRemoved:*"]
 
   }
 }
