@@ -1,95 +1,84 @@
-/* Text alignment and size*/
 h1 { 
-    text-align: center;
-    font-size: 0.65cm;
-  }
-  
-  hr{
-    margin-top: -11px
-  }
-  
-  h2 { 
-    font-size: 0.50cm;
-  }
-  
-  .information {
-    text-align: center;
-    margin-top: -11px;
-  }
-  
-  em {
-    margin-top: 5px;
-  }
-  
-  p{
-    margin-top: 0.7px;
-  }
-  
-  ul{
-    margin-top: 0.7px;
-    margin-bottom: 5px;
-  }
+  text-align: center;
+  font-size: 16px; 
+}
 
-  .dash {
-    list-style: '-';
-    margin-left: 0;
-    padding-left: 1em;
-    text-indent: -1em;
-  }
+h2 { 
+  font-size: 14px; 
+}
 
-  
-  .bolded {
-    font-weight: bold;
-  }
-  
-  .Position {
-    font-weight: bold;
-  }
-  
-  .projectName .date { float:right; font-weight: bold}
-  .Degree .date { float:right; font-weight: bold }
-  .jobName .date { float:right; font-weight: bold }
-  .schoolName .date { float:right; font-weight: bold}
-  .smallText .worklist { margin-top: -5px;}
-  
-  /* Layout */
-  body {
-    background: rgb(204,204,204); 
-    width: 21cm;
-    height: 29.7cm;
-    margin: 0 auto;
-  }
-  
-    /* Printing */
-  page {
-    background: white;
-    display: block;
-    margin: 0 auto;
-    margin-bottom: 0.5cm;
-  }
-  
-  page[size="A4"] {  
-    width: 21cm;
-    height: 29cm; 
-  }
-  
-  @page {
-     size: 21cm 29cm;
-     padding: 0;
-     margin: 0mm;
-     border: none;
-     border-collapse: collapse;
-  }
-  /* End Printing */
-  
-  .container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-  }
-  .mainPanel {
-    width: 100%;
-    padding: 0.7cm;
-  }
-  
+hr {
+  margin-top: -11px;
+}
+
+.information {
+  text-align: center;
+  margin-top: -11px;
+}
+
+em {
+  margin-top: 5px;
+}
+
+p {
+  margin-top: 0.7px;
+}
+
+ul {
+  margin-top: 0.7px;
+  margin-bottom: 5px;
+}
+
+.bolded, .Position {
+  font-weight: bold;
+}
+
+.projectName .date, .Degree .date, .jobName .date, .schoolName .date {
+  float: right;
+  font-weight: bold;
+}
+
+.smallText .worklist {
+  margin-top: -5px;
+}
+
+/* Layout */
+body {
+  background: #ccc; 
+  width: 21cm;
+  height: 29.7cm;
+  margin: 0 auto;
+}
+
+/* Printing */
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+}
+
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+
+@page {
+  size: A4;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-collapse: collapse;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.mainPanel {
+  width: 100%;
+  padding: 0.7cm;
+}
