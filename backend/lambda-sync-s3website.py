@@ -9,25 +9,18 @@ logger = logging.getLogger()
 s3 = boto3.client('s3')
 sns = boto3.client('sns')
 sns_topic_arn = "${sns_topic_arn}"
-s3_sync_website = os.environ.get('websites3_sync_lambda')
+s3_sync_website = "www.adriancaballeroresume.com"
 
 def lambda_handler(event, context):
-    bucket = event['Records'][0]['s3']['bucket']['name']
-    website_bucket = 'www.adriancaballeroresume.com'
+    key = event['Records'][0]['s3']['object']['key']
+    source_bucket = event['Records'][0]['s3']['bucket']['key']
+    website_bucket = os.environ['webiste_bucket']
+
+    source = {'Bucket': source_bucket, 'Key': key}
     
     try:
-        # Get a list of all objects in the source bucket
-        response = s3.list_objects_v2(Bucket=bucket)
-        if 'Contents' in response:
-            for obj in response['Contents']:
-                # Copy each object to the destination bucket
-                copy_source = {
-                    'Bucket': bucket,
-                    'Key': obj['Key']
-                }
-                s3.copy_object(CopySource=copy_source, Bucket=website_bucket, Key=obj['Key'])
-        
-        print("Website syncing completed successfully")
+        response = s3.meta.client.copy(source, website_bucket, key)
+        logger.info("File copied to the destination bucket successfully!")
 
         #publish message to SNS 
         message = f"Updated website content"
