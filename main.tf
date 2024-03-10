@@ -109,7 +109,7 @@ resource "aws_lambda_function" "website-s3-sync" {
   role = aws_iam_role.lambda_role.arn
   handler = "lambda_handler"
 
-  source_code_hash = data.archive_file.lambda_sync_s3.output_base64sha256
+  source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   runtime = "python3.11"
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }
