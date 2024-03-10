@@ -7,6 +7,10 @@ resource "aws_s3_bucket" "adriancaballero-branchcontent" {
   bucket = "adriancaballero-branchcontent"
 }
 
+resource "aws_s3_bucket" "www" {
+  bucket = "www.adriancaballeroresume.com"
+}
+
 resource "aws_s3_bucket_public_access_block" "adriancaballero-branchcontent" {
   bucket = aws_s3_bucket.adriancaballero-branchcontent.id
 
@@ -74,8 +78,8 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
           "s3:*"
         ]
         Resource = [
-          "${aws_s3_bucket.www.adriancaballeroresume.com.arn}/*",
-          "${aws_s3_bucket.adriancaballero-branchcontent.arn}/*"
+          "${aws_s3_bucket.adriancaballero-branchcontent.arn}/*",
+          "${aws_s3_bucket.www.arn}/*"
         ]
       },
       {
