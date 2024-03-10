@@ -4,23 +4,44 @@ import urllib.parse
 import boto3
 import os
 import logging
+import uuid
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-s3 = boto3.client('s3')
 sns = boto3.client('sns')
 sns_topic_arn = "${sns_topic_arn}"
 
-def lambda_handler(event, context):
-    key = event['Records'][0]['s3']['object']['key']
-    source_bucket = event['Records'][0]['s3']['bucket']['name']
-    website_bucket = "www.adriancaballeroresume.com"
+response = s3.list_objects_v2(Bucket=source_bucket_name)
 
-    source = {'Bucket': source_bucket, 'Key': key}
-    
+def lambda_handler(event, context):
+    source_bucket_name = 'adriancaballero-branchcontent'
+    destination_bucket_name = 'www.adriancaballeroresume.com'
+    s3 = boto3.client('s3')
+
+
     try:
-        response = s3.meta.client.copy(source, website_bucket, key)
+        response = s3.list_objects_v2(Bucket=source_bucket_name)
+        for obj in response.get('Contents', []):
+            # Get the key of the object
+            key = obj['Key']
+
+            # Copy the object from source to destination bucket
+            copy_source = {
+                'Bucket': source_bucket_name,
+                'Key': key
+            }
+            destination_key = key  # You can change the destination key if needed
+            s3.copy_object(CopySource=copy_source, Bucket=destination_bucket_name, Key=destination_key)
+
+        # Return success message
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Files copied successfully!')
+        }
+
+
+        print(response)
         logger.info("File copied to the destination bucket successfully!")
 
         #publish message to SNS 
