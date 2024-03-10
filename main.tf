@@ -97,6 +97,8 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
         "s3:ListBucket",
         "s3:GetObject",
         "s3:PutObject",
+        "s3:GetObjectTagging",
+        "s3:PutObjectTagging",
         "s3:*"
       ],
       "Resource": [
@@ -171,5 +173,3 @@ resource "aws_s3_bucket_notification" "trigger_lambdas3sync" {
 
   }
 }
-
-//
