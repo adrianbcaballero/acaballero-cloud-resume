@@ -7,6 +7,11 @@ resource "aws_s3_bucket" "adriancaballero-branchcontent" {
   bucket = "adriancaballero-branchcontent"
 }
 
+variable "website_bucket" {
+  description = "www.adriancaballeroresume.com"
+  type        = string
+}
+
 resource "aws_s3_bucket_policy" "lambda_access_policy" {
   bucket = aws_s3_bucket.adriancaballero-branchcontent.id
 
@@ -97,6 +102,8 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
         "s3:ListBucket",
         "s3:GetObject",
         "s3:PutObject",
+        "s3:GetObjectTagging",
+        "s3:PutObjectTagging",
         "s3:*"
       ],
       "Resource": [
@@ -149,8 +156,11 @@ resource "aws_lambda_function" "website-s3-sync" {
   environment {
     variables = {
       websites3_sync_lambda = aws_cloudwatch_log_group.lambda_logs.name
+      website_bucket        = var.website_bucket
     }
   }
+
+  
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
