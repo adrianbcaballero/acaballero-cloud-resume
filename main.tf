@@ -7,28 +7,6 @@ resource "aws_s3_bucket" "adriancaballero-branchcontent" {
   bucket = "adriancaballero-branchcontent"
 }
 
-resource "aws_s3_bucket_policy" "lambda_access_policy" {
-  bucket = aws_s3_bucket.adriancaballero-branchcontent.id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AllowLambdaAccess",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Action": "s3:*",
-      "Resource": "${aws_s3_bucket.adriancaballero-branchcontent.arn}/*"
-    }
-  ]
-}
-EOF
-}
-
-
 resource "aws_s3_bucket_public_access_block" "adriancaballero-branchcontent" {
   bucket = aws_s3_bucket.adriancaballero-branchcontent.id
 
@@ -93,13 +71,11 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
     },
     {
       "Effect": "Allow",
-      "Action": "s3:PutObject",
-      "Resource": "arn:aws:s3:::www.adriancaballeroresume.com/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::adriancaballero-branchcontent/*"
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::adriancaballero-branchcontent/*",
+        "arn:aws:s3:::www.adriancaballeroresume.com/*"
+      ]
     },
     {
       "Effect": "Allow",
@@ -111,6 +87,8 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
 EOF
 }
 
+
+
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
   role        = aws_iam_role.lambda_role.name
   policy_arn  = aws_iam_policy.iam_policy_for_lambda.arn
@@ -120,20 +98,21 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 //zipping python initial lambda file 
 data "archive_file" "lambda-sync-s3" {
   type = "zip"
-  source_file = "./backend/lambda-sync-s3website.py"
-  output_path = "lambda_function_syncs3.zip"
+  source_file = "${path.module}/backend/lambda-sync-s3website.py"
+  output_path = "lambda-sync-s3website.zip"
+  output_file_mode = 0666
 }
 
 //creating lambda function to move to s3 website, cloudwatch logs, sns
 resource "aws_lambda_function" "website-s3-sync" {
-  filename = "lambda_function_syncs3.zip"
   function_name = "lambda_function_syncs3"
+  filename = "lambda-sync-s3website.zip"
   role = aws_iam_role.lambda_role.arn
-  handler = "lambda_handler"
-
-  source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   runtime = "python3.9"
+  handler = "lambda-sync-s3website.lambda_handler"
+  source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+  timeout = 10
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
@@ -151,6 +130,5 @@ resource "aws_s3_bucket_notification" "trigger_lambdas3sync" {
   lambda_function {
     lambda_function_arn = aws_lambda_function.website-s3-sync.arn
     events              = ["s3:ObjectCreated:*", "s3:ObjectRemoved:*"]
-
   }
 }
