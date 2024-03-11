@@ -75,7 +75,9 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
       "Action": "s3:*",
       "Resource": [
         "arn:aws:s3:::adriancaballero-branchcontent/*",
-        "arn:aws:s3:::www.adriancaballeroresume.com/*"
+        "arn:aws:s3:::adriancaballero-branchcontent",
+        "arn:aws:s3:::www.adriancaballeroresume.com/*",
+        "arn:aws:s3:::www.adriancaballeroresume.com"
       ]
     },
     {
@@ -95,6 +97,11 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 
 resource "aws_iam_role_policy_attachment" "attach_sns_publish_policy_to_iam_role" {
   role        = aws_iam_role.lambda_role.name
+  policy_arn = aws_iam_policy.iam_policy_for_lambda.arn
+}
+
+resource "aws_iam_role_policy_attachment" "attach_policy_to_role" {
+  role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.iam_policy_for_lambda.arn
 }
 
