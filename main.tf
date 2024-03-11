@@ -149,3 +149,20 @@ resource "aws_s3_bucket_notification" "trigger_lambdas3sync" {
     events              = ["s3:ObjectCreated:*", "s3:ObjectRemoved:*"]
   }
 }
+
+//creating Dynamo DB table 
+resource "aws_dynamodb_table" "website-dynamodb-table" {
+  name           = "Website-access"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "website_id"
+
+  attribute {
+    name = "website_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "access_count"
+    type = "N"
+  }
+}
