@@ -10,7 +10,7 @@ def lambda_handler(event, context):
         #delete objects in www.adriancaballeroresume.com
         website_bucket_name = 'www.adriancaballeroresume.com'
         prefix = ''
-        response = s3.list_objects_v22(Bucket=website_bucket_name, Prefix=prefix)
+        response = s3.list_objects_v2(Bucket=website_bucket_name, Prefix=prefix)
         for object in response['Contents', []]:
             print('Deleting', object['Key'])
             s3.delete_object(Bucket=website_bucket_name, Key=obj['Key'])
@@ -26,7 +26,6 @@ def lambda_handler(event, context):
             s3.copy_object(CopySource=copy_source, Bucket=dest_bucket_name, Key=obj['Key'])
             print(obj['Key'] + ' - File Copied')
 
-
         #send sns of website updating
         sns_topic_arn = os.environ['SNS_TOPIC_ARN']
         message = "New front end files were uploaded and Website content will be updated"
@@ -36,6 +35,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps('Website content updated and SNS sent successfully')
         }
+    
     except Exception as e:
         print("An error occurred:", str(e))
         return {
