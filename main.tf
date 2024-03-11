@@ -20,6 +20,7 @@ resource "aws_s3_bucket_public_access_block" "adriancaballero-branchcontent" {
 resource "aws_sns_topic" "owner_updates" {
   name = "user-updates-websiteupdate"
 }
+
 resource "aws_sns_topic_subscription" "owner_updates_email_target" {
   topic_arn = aws_sns_topic.owner_updates.arn
   protocol  = "email"
@@ -111,6 +112,12 @@ resource "aws_lambda_function" "website-s3-sync" {
   source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
   depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
   timeout = 10
+
+  environment {
+    variables = {
+      SNS_TOPIC_ARN = aws_sns_topic.owner_updates.arn
+    }
+  }
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
