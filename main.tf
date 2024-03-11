@@ -172,3 +172,74 @@ resource "aws_dynamodb_table" "website-dynamodb-table" {
     projection_type    = "ALL"
   }
 }
+
+//lambda function triggered by api gateway
+data "archive_file" "lambda-update-dynamodb" {
+  type = "zip"
+  source_file = "${path.module}/backend/lambda-update-dynamodb.py"
+  output_path = "lambda-update-dynamodb.zip"
+  output_file_mode = 0666
+}
+
+resource "aws_lambda_function" "update-dynamodb" {
+  function_name = "lambda_function_updateDB"
+  filename = "lambda-update-dynamodb.zip"
+  role = aws_iam_role.lambda_role.arn
+  runtime = "python3.9"
+  handler = "lambda-update-dynamodb.lambda_handler"
+  source_code_hash = data.archive_file.lambda-update-dynamodb.output_base64sha256
+  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+  timeout = 10
+}
+
+// API Gateway Resource
+resource "aws_apigatewayv2_api" "website_proxy" {
+  name          = "website-proxy"
+  protocol_type = "HTTP"
+}
+
+//creates connection with cloudfront
+resource "aws_apigatewayv2_integration" "website_proxy_integration" {
+  api_id           = aws_apigatewayv2_api.website_proxy.id
+  integration_type = "HTTP_PROXY"
+  integration_method = "ANY"
+  integration_uri = "https://www.adriancaballeroresume.com"
+}
+
+resource "aws_apigatewayv2_integration" "website_proxy_integration_2" {
+  api_id           = aws_apigatewayv2_api.website_proxy.id
+  integration_type = "HTTP_PROXY"
+  integration_method = "ANY"
+  integration_uri = "https://adriancaballeroresume.com"
+}
+
+resource "aws_apigatewayv2_integration" "website_lambda_integration" {
+  api_id            = aws_apigatewayv2_api.website_proxy.id
+  integration_type  = "AWS_PROXY"
+  integration_uri   = aws_lambda_function.update-dynamodb.invoke_arn
+}
+
+//gateway routes
+resource "aws_apigatewayv2_route" "website_proxy_route" {
+  api_id    = aws_apigatewayv2_api.website_proxy.id
+  route_key = "ANY /website-1"
+  target    = "integrations/${aws_apigatewayv2_integration.website_proxy_integration.id}"
+}
+
+resource "aws_apigatewayv2_route" "website_proxy_route_2" {
+  api_id    = aws_apigatewayv2_api.website_proxy.id
+  route_key = "ANY /website-2"
+  target    = "integrations/${aws_apigatewayv2_integration.website_proxy_integration_2.id}"
+}
+
+resource "aws_apigatewayv2_route" "website_proxy_route_lambda" {
+  api_id    = aws_apigatewayv2_api.website_proxy.id
+  route_key = "ANY /lambda"
+  target    = "integrations/${aws_apigatewayv2_integration.website_lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_stage" "website_proxy_stage" {
+  api_id = aws_apigatewayv2_api.website_proxy.id
+  name   = "prod"
+  auto_deploy = true
+}
