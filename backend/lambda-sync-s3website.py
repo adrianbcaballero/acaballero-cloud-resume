@@ -10,10 +10,10 @@ def lambda_handler(event, context):
         #delete objects in www.adriancaballeroresume.com
         website_bucket_name = 'www.adriancaballeroresume.com'
         prefix = ''
-        response = s3_client.list_objects_v2(Bucket=website_bucket_name, Prefix=prefix)
+        response = s3.list_objects_v22(Bucket=website_bucket_name, Prefix=prefix)
         for object in response['Contents', []]:
             print('Deleting', object['Key'])
-            s3_client.delete_object(Bucket=website_bucket_name, Key=object['Key'])
+            s3.delete_object(Bucket=website_bucket_name, Key=obj['Key'])
         
        # copying contents from branch content s3 to website s3
         src_bucket_name = 'adriancaballero-branchcontent'
