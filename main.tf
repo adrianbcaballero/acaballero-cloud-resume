@@ -234,7 +234,7 @@ resource "aws_apigatewayv2_route" "website_proxy_route_2" {
 
 resource "aws_apigatewayv2_route" "website_proxy_route_lambda" {
   api_id    = aws_apigatewayv2_api.website_proxy.id
-  route_key = "$default"
+  route_key = "ANY /lambda"
   target    = "integrations/${aws_apigatewayv2_integration.website_lambda_integration.id}"
 }
 
