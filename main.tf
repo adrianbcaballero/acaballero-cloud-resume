@@ -75,7 +75,9 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
       "Action": "s3:*",
       "Resource": [
         "arn:aws:s3:::adriancaballero-branchcontent/*",
-        "arn:aws:s3:::www.adriancaballeroresume.com/*"
+        "arn:aws:s3:::adriancaballero-branchcontent",
+        "arn:aws:s3:::www.adriancaballeroresume.com/*",
+        "arn:aws:s3:::www.adriancaballeroresume.com"
       ]
     },
     {
