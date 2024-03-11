@@ -222,19 +222,19 @@ resource "aws_apigatewayv2_integration" "website_lambda_integration" {
 //gateway routes
 resource "aws_apigatewayv2_route" "website_proxy_route" {
   api_id    = aws_apigatewayv2_api.website_proxy.id
-  route_key = "website-1"
+  route_key = "ANY /website-1"
   target    = "integrations/${aws_apigatewayv2_integration.website_proxy_integration.id}"
 }
 
 resource "aws_apigatewayv2_route" "website_proxy_route_2" {
   api_id    = aws_apigatewayv2_api.website_proxy.id
-  route_key = "website-1"
+  route_key = "ANY /website-2"
   target    = "integrations/${aws_apigatewayv2_integration.website_proxy_integration_2.id}"
 }
 
 resource "aws_apigatewayv2_route" "website_proxy_route_lambda" {
   api_id    = aws_apigatewayv2_api.website_proxy.id
-  route_key = "$website-lambda"
+  route_key = "$default"
   target    = "integrations/${aws_apigatewayv2_integration.website_lambda_integration.id}"
 }
 
