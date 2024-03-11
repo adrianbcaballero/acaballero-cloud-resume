@@ -93,6 +93,11 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+resource "aws_iam_role_policy_attachment" "attach_sns_publish_policy_to_iam_role" {
+  role        = aws_iam_role.lambda_role.name
+  policy_arn = aws_iam_policy.iam_policy_for_lambda.arn
+}
+
 
 //zipping python initial lambda file 
 data "archive_file" "lambda-sync-s3" {
@@ -110,7 +115,7 @@ resource "aws_lambda_function" "website-s3-sync" {
   runtime = "python3.9"
   handler = "lambda-sync-s3website.lambda_handler"
   source_code_hash = data.archive_file.lambda-sync-s3.output_base64sha256
-  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role, aws_iam_role_policy_attachment.attach_sns_publish_policy_to_iam_role]
   timeout = 10
 
   environment {
