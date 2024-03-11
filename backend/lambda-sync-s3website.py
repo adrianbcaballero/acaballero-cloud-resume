@@ -11,9 +11,10 @@ def lambda_handler(event, context):
         website_bucket_name = 'www.adriancaballeroresume.com'
         prefix = ''
         response = s3.list_objects_v2(Bucket=website_bucket_name, Prefix=prefix)
-        for object in response.get('Contents', []):
-            print('Deleting', object['Key'])
-            s3.delete_object(Bucket=website_bucket_name, Key=object['Key'])
+        if 'Contents' in response:
+            for obj in response['Contents']:
+                print('Deleting', obj['Key'])
+                s3.delete_object(Bucket=website_bucket_name, Key=obj['Key'])
         
         # Copying contents from branch content s3 to website s3
         src_bucket_name = 'adriancaballero-branchcontent'
@@ -21,10 +22,11 @@ def lambda_handler(event, context):
 
         # Iterate over all objects in the source bucket
         response = s3.list_objects_v2(Bucket=src_bucket_name)
-        for obj in response.get('Contents', []):
-            copy_source = {'Bucket': src_bucket_name, 'Key': obj['Key']}
-            s3.copy_object(CopySource=copy_source, Bucket=dest_bucket_name, Key=obj['Key'])
-            print(obj['Key'] + ' - File Copied')
+        if 'Contents' in response:
+            for obj in response['Contents']:
+                copy_source = {'Bucket': src_bucket_name, 'Key': obj['Key']}
+                s3.copy_object(CopySource=copy_source, Bucket=dest_bucket_name, Key=obj['Key'])
+                print(obj['Key'] + ' - File Copied')
 
         # Send SNS of website updating
         sns_topic_arn = os.environ['SNS_TOPIC_ARN']
@@ -40,5 +42,5 @@ def lambda_handler(event, context):
         print("An error occurred:", str(e))
         return {
             'statusCode': 500,
-            'body': json.dumps('Error occurred while updating website content')
+           'body': json.dumps('Error occurred while updating website content')
         }
