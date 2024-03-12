@@ -201,8 +201,37 @@ resource "aws_lambda_function" "update-dynamodb" {
   runtime = "python3.9"
   handler = "lambda-update-dynamodb.lambda_handler"
   source_code_hash = data.archive_file.lambda-update-dynamodb.output_base64sha256
-  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role, aws_iam_role_policy_attachment.lambda_full_access_policy_attachment]
   timeout = 10
+}
+
+resource "aws_iam_policy" "lambda_full_access_policy" {
+  name        = "lambda_full_access_policy"
+  description = "Policy for full access to DynamoDB and CloudWatch Logs"
+  policy      = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "dynamodb:*"  
+        ],
+        Resource = "*"
+      },
+      {
+        Effect   = "Allow",
+        Action   = [
+          "logs:*"  
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_full_access_policy_attachment" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = aws_iam_policy.lambda_full_access_policy.arn
 }
 
 // API Gateway Resource
