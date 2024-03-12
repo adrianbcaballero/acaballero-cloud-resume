@@ -173,6 +173,19 @@ resource "aws_dynamodb_table" "website-dynamodb-table" {
   }
 }
 
+//initialize at zero
+resource "aws_dynamodb_table_item" "initial_website_item" {
+  table_name = aws_dynamodb_table.website-dynamodb-table.name
+
+  hash_key = "website_id"
+  item = <<ITEM
+{
+  "website_id": {"S": "adriancaballeroresume.com"},
+  "access_count": {"N": "0"}
+}
+ITEM
+}
+
 //lambda function triggered by api gateway
 data "archive_file" "lambda-update-dynamodb" {
   type = "zip"
