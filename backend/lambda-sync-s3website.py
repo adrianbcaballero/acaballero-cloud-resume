@@ -1,6 +1,7 @@
 import json
 import os
 import boto3
+import time
 
 s3 = boto3.client('s3')
 sns = boto3.client('sns')
@@ -35,15 +36,15 @@ def lambda_handler(event, context):
         sns.publish(TopicArn=sns_topic_arn, Message=message, Subject="Updated Website contents")
 
         #invalidate cloudfront cache
-        distribution_id = 'EZZ8DJS18WL3N'
-        cloudfront.create_invalidation(
-            DistributionID = distribution_id,
+        client = boto3.client('cloudfront')
+        invalidation = client.create_invalidation(
+            DistributionId='EZZ8DJS18WL3N',
             InvalidationBatch={
                 'Paths': {
                     'Quantity': 1,
                     'Items': ['/*'] 
                 },
-                'CallerReference': 's3-bucket-change-invalidation'  
+                'CallerReference': str(time.time())
             }
         )
         
