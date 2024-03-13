@@ -320,7 +320,7 @@ resource "aws_api_gateway_stage" "website_proxy" {
 resource "aws_api_gateway_method_settings" "website_proxy" {
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
   stage_name  = aws_api_gateway_stage.website_proxy.stage_name
-  method_path = "/*/*"
+  method_path = "*/*"
 
   settings {
   }
