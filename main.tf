@@ -234,6 +234,16 @@ resource "aws_iam_policy" "lambda_full_access_policy" {
         Effect   = "Allow",
         Action   = "apigateway:*",
         Resource = "*"
+      },
+      {
+        Effect   = "Allow",
+        Action   = "cloudfront:*",
+        Resource = "*"
+      },
+      {
+        Effect   = "Allow",
+        Action   = "lambda:*",
+        Resource = "*"
       }
     ]
   })

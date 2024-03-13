@@ -22,17 +22,29 @@ def lambda_handler(event, context):
         )
         logger.info("Response: %s", response)
         
-        #return new value to api
+        # Retrieve the updated access count
         new_viewcount = response['Attributes']['access_count']
         
-        # Return the payload JSON only
-        return {
-            'message': 'Value updated successfully',
-            'value': new_viewcount
+        # Construct the HTTP response
+        http_response = {
+            'statusCode': 200,
+            'headers': {
+                'Access-Control-Allow-Origin': 'https://www.adriancaballeroresume.com',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
+                'Access-Control-Allow-Headers': 'Content-Type'
+            },
+            'body': json.dumps({
+                'message': 'Value updated successfully',
+                'value': new_viewcount
+            })
         }
+        
+        return http_response
+    
     except Exception as e:
         logger.error("An error occurred: %s", str(e))
         # Return an error response
         return {
-            'error': 'Internal Server Error'
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Internal Server Error'})
         }
