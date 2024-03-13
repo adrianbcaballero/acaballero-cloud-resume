@@ -301,7 +301,27 @@ resource "aws_api_gateway_rest_api_policy" "website_proxy" {
 }
 
 resource "aws_api_gateway_deployment" "website_proxy" {
-  depends_on = [ aws_api_gateway_integration.website_proxy ]
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  stage_name = "stage"
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.website_proxy))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_stage" "website_proxy" {
+  deployment_id = aws_api_gateway_deployment.website_proxy.id
+  rest_api_id   = aws_api_gateway_rest_api.website_proxy.id
+  stage_name    = "stage"
+}
+
+resource "aws_api_gateway_method_settings" "website_proxy" {
+  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
+  stage_name  = aws_api_gateway_stage.website_proxy.stage_name
+  method_path = "/*/*"
+
+  settings {
+  }
 }
