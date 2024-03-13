@@ -229,6 +229,11 @@ resource "aws_iam_policy" "lambda_full_access_policy" {
           "logs:*"  
         ],
         Resource = "*"
+      },
+      {
+        Effect   = "Allow",
+        Action   = "apigateway:*",
+        Resource = "*"
       }
     ]
   })
