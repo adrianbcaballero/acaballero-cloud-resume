@@ -1,6 +1,7 @@
 import boto3
 import logging
 import os
+import json
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -23,12 +24,23 @@ def lambda_handler(event, context):
         
         #return new value to api
         new_viewcount = response['Atrributes']['access_count']
-        return{
+        http_response = {
             'statusCode': 200,
-            'body': {
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST'
+            },
+            'body': json.dumps({
                 'message': 'Value updated successfully',
                 'value': new_viewcount
-            }
+            })
         }
+        
+        return http_response
     except Exception as e:
         logger.error("An error occurred: %s", str(e))
+        # Return an error response
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Internal Server Error'})
+        }
