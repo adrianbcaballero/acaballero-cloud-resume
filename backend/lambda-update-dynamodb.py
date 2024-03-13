@@ -2,6 +2,7 @@ import boto3
 import logging
 import os
 import json
+from decimal import Decimal
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -24,6 +25,8 @@ def lambda_handler(event, context):
         
         # Retrieve the updated access count
         new_viewcount = response['Attributes']['access_count']
+        # Convert Decimal to int
+        new_viewcount = int(new_viewcount)
         
         # Construct the HTTP response
         http_response = {
