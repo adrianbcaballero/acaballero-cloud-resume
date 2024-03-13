@@ -207,16 +207,12 @@ resource "aws_iam_policy" "lambda_full_access_policy" {
     Statement = [
       {
         Effect   = "Allow",
-        Action   = [
-          "dynamodb:*"  
-        ],
+        Action   = "dynamodb:*",
         Resource = "*"
       },
       {
         Effect   = "Allow",
-        Action   = [
-          "logs:*"  
-        ],
+        Action   = "logs:*",
         Resource = "*"
       },
       {
@@ -250,116 +246,78 @@ resource "aws_lambda_function" "update-dynamodb" {
   runtime = "python3.9"
   handler = "lambda-update-dynamodb.lambda_handler"
   source_code_hash = data.archive_file.lambda-update-dynamodb.output_base64sha256
-  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role, aws_iam_role_policy_attachment.lambda_full_access_policy_attachment]
-  timeout = 10
+}
+
+resource "aws_lambda_permission" "allow_api_gateway_to_invoke_lambda" {
+  statement_id  = "AllowExecutionFromApiGateway"
+  action        = "lambda:*"
+  function_name = aws_lambda_function.update-dynamodb.arn
+  principal     = "apigateway.amazonaws.com"
 }
 
 // API Gateway Resource
-resource "aws_api_gateway_rest_api" "website_proxy" {
-  name          = "website_proxy"
+resource "aws_api_gateway_rest_api" "proxy" {
+  name          = "proxy"
 }
 
-resource "aws_api_gateway_resource" "website_proxy" {
-  parent_id   = aws_api_gateway_rest_api.website_proxy.root_resource_id
-  path_part   = "websiteproxy"
-  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
+resource "aws_api_gateway_resource" "proxy" {
+  parent_id   = aws_api_gateway_rest_api.proxy.root_resource_id
+  path_part   = "proxy"
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
 }
 
-resource "aws_api_gateway_method" "website_proxy" {
+resource "aws_api_gateway_method" "proxy" {
   authorization = "NONE"
   http_method   = "POST"
-  resource_id   = aws_api_gateway_resource.website_proxy.id
-  rest_api_id   = aws_api_gateway_rest_api.website_proxy.id
+  resource_id   = aws_api_gateway_resource.proxy.id
+  rest_api_id   = aws_api_gateway_rest_api.proxy.id
 }
 
-resource "aws_api_gateway_integration" "website_proxy" {
-  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  resource_id = aws_api_gateway_resource.website_proxy.id
-  http_method = aws_api_gateway_method.website_proxy.http_method
+resource "aws_api_gateway_integration" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
   integration_http_method = "POST"
-  type  = "AWS_PROXY"
+  type  = "AWS"
   uri = aws_lambda_function.update-dynamodb.invoke_arn
 }
 
-data "aws_iam_policy_document" "website_proxy" {
-  statement {
-    effect = "Allow"
+resource "aws_api_gateway_method_response" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  status_code = "200"
 
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    actions   = ["execute-api:Invoke"]
-    resources = ["*"]
-  }
-
-  statement {
-    sid       = "lambda-3ea808d4-76ab-4dd1-bd5d-b6263b151034"
-    effect    = "Allow"
-    actions   = [
-      "lambda:InvokeFunction",
-      "lambda:GetFunction",
-      "lambda:ListFunctions",
-      "lambda:PassRole",
-      "lambda:InvokeAsync"
-    ]
-    resources = ["arn:aws:lambda:us-west-1:851725432970:function:update-dynamodb"]
-
-    condition {
-      test     = "ArnLike"
-      variable = "AWS:SourceArn"
-      values   = ["arn:aws:execute-api:us-west-1:851725432970:4z6q985fyj/*/*/update-dynamodb"]
-    }
-  }
-
-  statement {
-    sid       = "custom1"
-    effect    = "Allow"
-    actions   = [
-      "lambda:InvokeFunction",
-      "lambda:GetFunction",
-      "lambda:ListFunctions",
-      "lambda:PassRole",
-      "lambda:InvokeAsync"
-    ]
-    resources = ["arn:aws:lambda:us-west-1:851725432970:function:update-dynamodb"]
-
-    condition {
-      test     = "ArnLike"
-      variable = "AWS:SourceArn"
-      values   = ["arn:aws:execute-api:us-west-1:851725432970:4z6q985fyj/*/POST/websiteproxy"]
-    }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin" = true
   }
 }
 
-resource "aws_api_gateway_rest_api_policy" "website_proxy" {
-  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  policy      = data.aws_iam_policy_document.website_proxy.json
+resource "aws_api_gateway_integration_response" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  status_code = aws_api_gateway_method_response.proxy.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" =  "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+  depends_on = [
+    aws_api_gateway_method.proxy,
+    aws_api_gateway_integration.proxy
+  ]
 }
 
-resource "aws_api_gateway_deployment" "website_proxy" {
-  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.website_proxy))
-  }
+resource "aws_api_gateway_deployment" "deployment" {
+  depends_on = [
+    aws_api_gateway_integration.proxy,
+    aws_api_gateway_integration.options_integration, # Add this line
+  ]
 
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_api_gateway_stage" "website_proxy" {
-  deployment_id = aws_api_gateway_deployment.website_proxy.id
-  rest_api_id   = aws_api_gateway_rest_api.website_proxy.id
-  stage_name    = "stage1"
-}
-
-resource "aws_api_gateway_method_settings" "website_proxy" {
-  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  stage_name  = aws_api_gateway_stage.website_proxy.stage_name
-  method_path = "*/*"
-
-  settings {
-  }
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  stage_name = "dev"
 }
