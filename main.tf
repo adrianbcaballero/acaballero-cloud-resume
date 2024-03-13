@@ -281,6 +281,29 @@ resource "aws_api_gateway_integration" "website_proxy_integration" {
   uri = aws_lambda_function.update-dynamodb.invoke_arn
 }
 
+resource "aws_api_gateway_rest_api" "website_proxy" {
+  name = "website_proxy"
+}
+
+data "aws_iam_policy_document" "website_proxy" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions   = ["execute-api:Invoke"]
+    resources = [aws_api_gateway_rest_api.website_proxy.execution_arn]
+
+  }
+}
+resource "aws_api_gateway_rest_api_policy" "website_proxy" {
+  rest_api_id = aws_api_gateway_rest_api.website_proxy.id
+  policy      = data.aws_iam_policy_document.website_proxy.json
+}
+
 resource "aws_api_gateway_deployment" "website_proxy_deployment" {
   depends_on = [ aws_api_gateway_integration.website_proxy_integration ]
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
