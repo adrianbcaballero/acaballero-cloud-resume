@@ -29,7 +29,7 @@ def lambda_handler(event, context):
         http_response = {
             'statusCode': 200,
             'headers': {
-                'Access-Control-Allow-Origin': 'https://www.adriancaballeroresume.com',
+                'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
                 'Access-Control-Allow-Headers': 'Content-Type'
             },

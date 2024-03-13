@@ -1,4 +1,4 @@
-fetch('https://4z6q985fyj.execute-api.us-west-1.amazonaws.com/staging', {
+fetch('https://adriancaballeroresume.com/staging', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
