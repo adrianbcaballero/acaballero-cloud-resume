@@ -199,17 +199,6 @@ data "archive_file" "lambda-update-dynamodb" {
   output_file_mode = 0666
 }
 
-resource "aws_lambda_function" "update-dynamodb" {
-  function_name = "lambda_function_updateDB"
-  filename = "lambda-update-dynamodb.zip"
-  role = aws_iam_role.lambda_role.arn
-  runtime = "python3.9"
-  handler = "lambda-update-dynamodb.lambda_handler"
-  source_code_hash = data.archive_file.lambda-update-dynamodb.output_base64sha256
-  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role, aws_iam_role_policy_attachment.lambda_full_access_policy_attachment]
-  timeout = 10
-}
-
 resource "aws_iam_policy" "lambda_full_access_policy" {
   name        = "lambda_full_access_policy"
   description = "Policy for full access to DynamoDB and CloudWatch Logs"
@@ -254,28 +243,39 @@ resource "aws_iam_role_policy_attachment" "lambda_full_access_policy_attachment"
   policy_arn = aws_iam_policy.lambda_full_access_policy.arn
 }
 
+resource "aws_lambda_function" "update-dynamodb" {
+  function_name = "update-dynamodb"
+  filename = "lambda-update-dynamodb.zip"
+  role = aws_iam_role.lambda_role.arn
+  runtime = "python3.9"
+  handler = "lambda-update-dynamodb.lambda_handler"
+  source_code_hash = data.archive_file.lambda-update-dynamodb.output_base64sha256
+  depends_on = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role, aws_iam_role_policy_attachment.lambda_full_access_policy_attachment]
+  timeout = 10
+}
+
 // API Gateway Resource
 resource "aws_api_gateway_rest_api" "website_proxy" {
   name          = "website_proxy"
 }
 
-resource "aws_api_gateway_resource" "website_proxy_resource" {
+resource "aws_api_gateway_resource" "website_proxy" {
   parent_id   = aws_api_gateway_rest_api.website_proxy.root_resource_id
-  path_part   = "website_proxy"
+  path_part   = "websiteproxy"
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
 }
 
-resource "aws_api_gateway_method" "website_proxy_method" {
+resource "aws_api_gateway_method" "website_proxy" {
   authorization = "NONE"
   http_method   = "POST"
-  resource_id   = aws_api_gateway_resource.website_proxy_resource.id
+  resource_id   = aws_api_gateway_resource.website_proxy.id
   rest_api_id   = aws_api_gateway_rest_api.website_proxy.id
 }
 
-resource "aws_api_gateway_integration" "website_proxy_integration" {
+resource "aws_api_gateway_integration" "website_proxy" {
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  resource_id = aws_api_gateway_resource.website_proxy_resource.id
-  http_method = aws_api_gateway_method.website_proxy_method.http_method
+  resource_id = aws_api_gateway_resource.website_proxy.id
+  http_method = aws_api_gateway_method.website_proxy.http_method
   integration_http_method = "POST"
   type  = "AWS_PROXY"
   uri = aws_lambda_function.update-dynamodb.invoke_arn
@@ -291,7 +291,7 @@ data "aws_iam_policy_document" "website_proxy" {
     }
 
     actions   = ["execute-api:Invoke"]
-    resources = [aws_api_gateway_rest_api.website_proxy.execution_arn]
+    resources = ["*"]
 
   }
 }
@@ -300,8 +300,8 @@ resource "aws_api_gateway_rest_api_policy" "website_proxy" {
   policy      = data.aws_iam_policy_document.website_proxy.json
 }
 
-resource "aws_api_gateway_deployment" "website_proxy_deployment" {
-  depends_on = [ aws_api_gateway_integration.website_proxy_integration ]
+resource "aws_api_gateway_deployment" "website_proxy" {
+  depends_on = [ aws_api_gateway_integration.website_proxy ]
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
-  stage_name = "staging"
+  stage_name = "stage"
 }
