@@ -19,7 +19,16 @@ def lambda_handler(event, context):
             ExpressionAttributeValues={":start": 0, ":increase": 1},
             ReturnValues="UPDATED_NEW",
         )
-
         logger.info("Response: %s", response)
+        
+        #return new value to api
+        new_viewcount = response['Atrributes']['access_count']
+        return{
+            'statusCode': 200,
+            'body': {
+                'message': 'Value updated successfully',
+                'value': new_viewcount
+            }
+        }
     except Exception as e:
         logger.error("An error occurred: %s", str(e))
