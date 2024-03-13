@@ -84,6 +84,11 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
       "Effect": "Allow",
       "Action": "sns:Publish",
       "Resource": "${aws_sns_topic.owner_updates.arn}"
+    },
+    {
+        "Effect": "Allow",
+        "Action": "cloudfront:*",
+        "Resource": "*"
     }
   ]
 }
