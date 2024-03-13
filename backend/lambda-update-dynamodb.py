@@ -1,6 +1,8 @@
 import boto3
 import logging
 import os
+import json
+from decimal import Decimal
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -21,14 +23,29 @@ def lambda_handler(event, context):
         )
         logger.info("Response: %s", response)
         
-        #return new value to api
-        new_viewcount = response['Atrributes']['access_count']
-        return{
+        # Retrieve the updated access count
+        new_viewcount = response['Attributes']['access_count']
+        # Convert Decimal to int
+        new_viewcount = int(new_viewcount)
+        
+        # Construct the HTTP response
+        http_response = {
             'statusCode': 200,
-            'body': {
+            'headers': {
+                "Content-Type": "application/json"
+            },
+            'body': json.dumps({
                 'message': 'Value updated successfully',
                 'value': new_viewcount
-            }
+            })
         }
+        
+        return http_response
+    
     except Exception as e:
         logger.error("An error occurred: %s", str(e))
+        # Return an error response
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Internal Server Error'})
+        }
