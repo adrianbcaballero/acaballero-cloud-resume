@@ -1,4 +1,4 @@
-fetch('https://adriancaballeroresume.com/staging', {
+fetch('https://adriancaballeroresume.com/api', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
