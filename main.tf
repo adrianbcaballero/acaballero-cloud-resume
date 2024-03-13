@@ -292,9 +292,47 @@ data "aws_iam_policy_document" "website_proxy" {
 
     actions   = ["execute-api:Invoke"]
     resources = ["*"]
+  }
 
+  statement {
+    sid       = "lambda-3ea808d4-76ab-4dd1-bd5d-b6263b151034"
+    effect    = "Allow"
+    actions   = [
+      "lambda:InvokeFunction",
+      "lambda:GetFunction",
+      "lambda:ListFunctions",
+      "lambda:PassRole",
+      "lambda:InvokeAsync"
+    ]
+    resources = ["arn:aws:lambda:us-west-1:851725432970:function:update-dynamodb"]
+
+    condition {
+      test     = "ArnLike"
+      variable = "AWS:SourceArn"
+      values   = ["arn:aws:execute-api:us-west-1:851725432970:4z6q985fyj/*/*/update-dynamodb"]
+    }
+  }
+
+  statement {
+    sid       = "custom1"
+    effect    = "Allow"
+    actions   = [
+      "lambda:InvokeFunction",
+      "lambda:GetFunction",
+      "lambda:ListFunctions",
+      "lambda:PassRole",
+      "lambda:InvokeAsync"
+    ]
+    resources = ["arn:aws:lambda:us-west-1:851725432970:function:update-dynamodb"]
+
+    condition {
+      test     = "ArnLike"
+      variable = "AWS:SourceArn"
+      values   = ["arn:aws:execute-api:us-west-1:851725432970:4z6q985fyj/*/POST/websiteproxy"]
+    }
   }
 }
+
 resource "aws_api_gateway_rest_api_policy" "website_proxy" {
   rest_api_id = aws_api_gateway_rest_api.website_proxy.id
   policy      = data.aws_iam_policy_document.website_proxy.json
