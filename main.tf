@@ -210,6 +210,19 @@ resource "aws_lambda_function" "update-dynamodb" {
   timeout = 10
 }
 
+resource "aws_lambda_function_url" "update_url" {
+  function_name      = aws_lambda_function.update-dynamodb.arn
+  authorization_type = "NONE"
+
+  cors {
+    allow_credentials = false
+    allow_origins     = ["*"]
+    allow_methods     = ["*"]
+    allow_headers     = ["Content-Type"]
+    max_age           = 3600
+  }
+}
+
 resource "aws_iam_policy" "lambda_full_access_policy" {
   name        = "lambda_full_access_policy"
   description = "Policy for full access to DynamoDB and CloudWatch Logs"
