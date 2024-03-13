@@ -4,6 +4,7 @@ import boto3
 
 s3 = boto3.client('s3')
 sns = boto3.client('sns')
+cloudfront = boto3.client('cloudfront')
 
 def lambda_handler(event, context):
     try:
@@ -32,6 +33,19 @@ def lambda_handler(event, context):
         sns_topic_arn = os.environ['SNS_TOPIC_ARN']
         message = "New front end files were uploaded and Website content will be updated"
         sns.publish(TopicArn=sns_topic_arn, Message=message, Subject="Updated Website contents")
+
+        #invalidate cloudfront cache
+        distribution_id = 'EZZ8DJS18WL3N'
+        cloudfront.create_invalidation(
+            DistributionID = distribution_id,
+            InvalidationBatch={
+                'Paths': {
+                    'Quantity': 1,
+                    'Items': ['/*'] 
+                },
+                'CallerReference': 's3-bucket-change-invalidation'  
+            }
+        )
         
         return {
             'statusCode': 200,
