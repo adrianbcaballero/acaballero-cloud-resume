@@ -314,7 +314,7 @@ resource "aws_api_gateway_deployment" "website_proxy" {
 resource "aws_api_gateway_stage" "website_proxy" {
   deployment_id = aws_api_gateway_deployment.website_proxy.id
   rest_api_id   = aws_api_gateway_rest_api.website_proxy.id
-  stage_name    = "stage"
+  stage_name    = "stage1"
 }
 
 resource "aws_api_gateway_method_settings" "website_proxy" {
