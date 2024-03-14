@@ -178,9 +178,15 @@ resource "aws_dynamodb_table" "website-dynamodb-table" {
   }
 }
 
-//initialize at zero
+data "aws_dynamodb_table_item" "existing_item" {
+  table_name = aws_dynamodb_table.website-dynamodb-table.name
+  key        = "adriancaballeroresume.com"
+}
+
 resource "aws_dynamodb_table_item" "initial_website_item" {
   table_name = aws_dynamodb_table.website-dynamodb-table.name
+
+  count = length(data.aws_dynamodb_table_item.existing_item) == 0 ? 1 : 0
 
   hash_key = "website_id"
   item = <<ITEM
