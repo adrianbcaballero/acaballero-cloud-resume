@@ -11,8 +11,9 @@ fetch('https://r05eb4w5b0.execute-api.us-west-1.amazonaws.com/dev/proxy', {
     return response.json(); 
 })
 .then(data => {
-    console.log('Response data', data);
-    const newValue = data.value;
+    console.log('Response data:', data); 
+    const parsedBody = JSON.parse(data.body); 
+    const newValue = parsedBody.value; 
 
     document.getElementById('viewCount').innerText = `View Count: ${newValue}`;
 })
