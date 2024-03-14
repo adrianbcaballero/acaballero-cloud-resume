@@ -178,18 +178,25 @@ resource "aws_dynamodb_table" "website-dynamodb-table" {
   }
 }
 
-//initialize at zero
+data "aws_dynamodb_table_item" "existing_item" {
+  table_name = aws_dynamodb_table.website-dynamodb-table.name
+  key        = jsonencode({
+    website_id = "adriancaballeroresume.com"
+  })
+}
+
 resource "aws_dynamodb_table_item" "initial_website_item" {
   table_name = aws_dynamodb_table.website-dynamodb-table.name
 
+  count = length(data.aws_dynamodb_table_item.existing_item) == 0 ? 1 : 0
+
   hash_key = "website_id"
-  item = <<ITEM
-{
-  "website_id": {"S": "adriancaballeroresume.com"},
-  "access_count": {"N": "0"}
+  item = jsonencode({
+    "website_id": "adriancaballeroresume.com",
+    "access_count": 0
+  })
 }
-ITEM
-}
+
 
 //lambda function triggered by api gateway
 data "archive_file" "lambda-update-dynamodb" {
