@@ -1,107 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link href="style.css" rel="stylesheet">
-  <script src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="counterContainer">
     <div id="viewCount">View Count: 0</div>
   </div>
-  <page size="A4">
-    <div class="container">
-      <div class="mainPanel">
-        <div>
-          <h1>ADRIAN CABALLERO</h1>
-          <p class="information">Bellflower, CA 90706 • abcaballero.py@gmail.com • +1 (562) 474-4147 • <a href="https://github.com/adrianbcaballero">https://github.com/adrianbcaballero</a></p>
-        </div>
-        
-        <div class="PROJECTS">
-          <h2>PROJECTS</h2>
-          <hr>
+  <div class="pdfDownloadButton">
+    <a href="https://drive.google.com/file/d/1IWmLfJjt-CmIZTqXvc-mkgoj30JNNYB6/view?usp=sharing" target="_blank"><button>PDF Version</button></a>
+  </div>
+  <div class="container">
+    <div class="mainPanel">
+      <div>
+        <h1>ADRIAN CABALLERO</h1>
+        <p class="information">abcaballero.py@gmail.com &#8729; +1 (562) 474-4147 &#8729; <a href="https://github.com/adrianbcaballero">https://github.com/adrianbcaballero</a> &#8729; <a href="https://www.linkedin.com/in/adrian-caballero-ab2970299/">LinkedIn</a></p>
+      </div>
+      
+      <div class="PROJECTS">
+        <h2>PROJECTS</h2>
+        <hr>
+        <div class="projectEntry">
           <div class="projectName">
             <span class="bolded">CLOUD RESUME</span>
             <span class="date">2023 - Present</span>
           </div>
           <div class="Position">
-            <span>Developer | GitHub: <a href="https://github.com/adrianbcaballero/acaballero-cloud-resume">https://github.com/adrianbcaballero/acaballero-cloud-resume</a></span>
+            <span>Developer | GitHub: <a href="https://github.com/adrianbcaballero/acaballero-cloud-resume">GitHub Link</a></span>
           </div>
           <div class="smallText">
-            <ul>
-              <li>Technologies used: HTML/CSS, Python, Amazon S3, Cloudfront, Route 53, SNS, DynamoDB, Lambda, IAM, Git, Github Actions, Terraform</li>
-              <li>Built and designed a personal git backed static resume website powered by various AWS services</li>
+            <ul class="projectDesc">
+              <li>Technologies used: HTML/CSS, HCL, Python, JavaScript, YAML, Amazon S3, Cloudfront, Route 53, API Gateway, Lambda, SNS, DynamoDB, IAM, CloudWatch, Git, Github Actions, Terraform</li>
+              <li>Designed and built a resume website and view counter that runs on serverless cloud infrastructure with integrated CI/CD</li>
             </ul>
-            <em>Selected Project Experience</em>
+            <strong><em>Selected Project Experience</em></strong>
             <ul>
               <li>Infrastructure as Code and Source Control</li>
+              <ul class="dash">
+                <li>Implemented IaC using Terraform, automating the deployment process and enhancing scalability</li>
+                <li>Utilized GitHub Actions for Continuous Integration/Continuous Deployment, ensuring efficient source control</li>
+              </ul>
+              <li>Cloud Architecture Design</li>
+              <ul class="dash">
+                <li>Designed and implemented a scalable cloud architecture system with principles of automation, cost optimization, and security</li>
+                <li>Integrated monitoring and alerting systems using IAM and CloudWatch for proactive management and troubleshooting</li>
+              </ul>
             </ul>
           </div>
+        </div>
 
+        <div class="projectEntry">
           <div class="projectName">
             <span class="bolded">WORD TREND LANGUAGE LEARNER</span>
             <span class="date">2023 - Present</span>
           </div>
           <div class="Position">
-            <span>Developer | GitHub: <a href="https://github.com/adrianbcaballero">https://github.com/adrianbcaballero</a></span>
+            <span>Developer | GitHub: <!--<a href="https://github.com/adrianbcaballero">https://github.com/adrianbcaballero</a>--></span>
           </div>
           <div class="smallText">
-            <ul>
-              <li>Technologies used: Ruby, HTML/CSS, JS, Amazon SQS, S3, Athena, RDS, WAF, MySQL, Git, Github</li>
+            <ul class="projectDesc">
+              <li>Technologies used: Python, HTML/CSS, JS, SQL, Amazon SQS, S3, Athena, WAF, Macie, GuardDuty, Git, Github</li>
               <li>Designed and implemented an English language learning platform for Spanish users using various AWS services that recommends and predicts words to learn based on usage trends over time</li>
             </ul>
-            <em>Selected Project Experience</em>
+            <strong><em>Selected Project Experience</em></strong>
             <ul>
               <li>Time Series Analysis and Forecasting</li>
-              <li>Security Automations for AWS WAF</li>
+              <ul class="dash">
+                <li>Conducted comprehensive time series analysis and forecasting with datasets predictive insights for words usage trends within the English language</li>
+              </ul>
+              <li>Cloud Security Practices</li>
+              <ul class="dash">
+                <li>Implemented industry security practices for data protection, threat management, and access management with AWS services</li>
+              </ul>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="EXPERIENCE">
-          <h2>EXPERIENCE</h2>
-          <hr>
+      <div class="EXPERIENCE">
+        <h2>EXPERIENCE</h2>
+        <hr>
+        <div class="jobEntry">
           <div class="jobName">
             <span class="bolded">ASSEMBLER</span>
-            <span class="date">December 2021 - November 2022</span>
+            <span class="date">February 2021 - January 2023</span>
           </div>
           <div class="Position">
             <span>Bell and Howell</span>
           </div>
-          <div class="smallText">
-            <p>With Bell and Howell, I contributed to several Amazon facilities by participating in parts assembly, adhering to schematics to construct equipment that was critical to daily operations.</p>
+          <div class="jobdesc">
+            <p>Traveled to several Amazon warehouses and modified essential transportation equipment to comply with updated schematics</p>
             <ul class="worklist">
-              <li>Ensured the timely completion of tasks and collaborated with team members to meet production goals and keep a clean and well-maintained workspace</li>
-              <li>Demonstrated a high level of adaptability by rapidly acquiring and mastering new assembly techniques while remaining standing for long periods of time.</li>
+              <li>Ensured the timely completion of tasks and collaborated with team members to meet production goals</li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="EDUCATION">
-          <h2>EDUCATION</h2>
-          <hr>
+      <div class="EDUCATION">
+        <h2>EDUCATION</h2>
+        <hr>
+        <div class="schoolEntry">
           <div class="schoolName">
             <span class="bolded">CALIFORNIA STATE POLYTECHNIC UNIVERSITY, POMONA</span>
             <span class="date">Pomona, CA</span>
           </div>
           <div class="Degree">
-            <span>Bachelor of Science, Major in Computer Science</span>
-            <span class="date">December 2017 - May 2021</span>
+            <span class="major">Bachelor of Science, Major in Computer Science</span>
+            <span class="date">2021 - present</span>
           </div>
-        </div>
-
-        <div class="CERTIFICATIONS-AND-ADDITIONAL-INFORMATION">
-          <h2>CERTIFICATIONS AND ADDITIONAL INFORMATION</h2>
-          <hr>
-          <div class="smallText">
-            <ul>
-              <li>Certifications: AWS Cloud Practitioner Essentials</li>
-              <li>Technical Skills: Python, Amazon Web Services (AWS), Git, Github, Linux, MySQL, Hadoop, Java, Docker, Kubernetes, XML, SOAP, WSDL, HTML, CSS, SQL, Terraform</li>
-              <li>Languages: English, Spanish</li>
-            </ul>
+          <div class="Degree">
+            <span class="graduateyear">Anticipated: May, 2025</span>
           </div>
         </div>
       </div>
+
+      <div class="CERTIFICATIONS-AND-ADDITIONAL-INFORMATION">
+        <h2>CERTIFICATIONS AND ADDITIONAL INFORMATION</h2>
+        <hr>
+        <div class="smallText">
+          <ul>
+            <li>Certifications: AWS Certified Cloud Practitioner</li>
+            <li>Technical Skills: Amazon Web Services (AWS), Python, Java, HTML, CSS, JavaScript, Git, Github, Linux, MySQL, Terraform, Docker, Kubernetes</li>
+            <li>Related Courses: Systems Programming, Database Systems, Object-Oriented Design and Programming</li>
+            <li>Languages: English, Spanish</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </page>  
+  </div>
 </body>
 </html>
+

@@ -1,15 +1,10 @@
-/* Text alignment and size */
 h1 { 
   text-align: center;
-  font-size: 0.65cm;
-}
-
-hr {
-  margin-top: -11px;
+  font-size: 24px;
 }
 
 h2 { 
-  font-size: 0.50cm;
+  font-size: 20px;
 }
 
 .information {
@@ -21,65 +16,75 @@ em {
   margin-top: 5px;
 }
 
-p {
-  margin-top: 0.7px;
-}
-
 ul {
   margin-top: 0.7px;
   margin-bottom: 5px;
 }
 
+.dash {
+  padding-left: 20px;
+  list-style-type: "- ";
+}
+
+.projectDesc{
+  margin-top: 5px;
+}
+
+.jobdesc{
+  margin-top: -11px;
+  margin-bottom: 20px;
+}
+
 .bolded {
   font-weight: bold;
+  font-size: 14.9px;
+}
+
+hr {
+  margin-top: -11px;
 }
 
 .Position {
   font-weight: bold;
 }
 
-.projectName .date, 
-.Degree .date, 
-.jobName .date, 
+.Degree .major{
+  font-weight: bold;
+  font-style: italic;
+}
+
+.date{
+  font-weight: bold;
+  float: right;
+}
+
+
 .schoolName .date {
   float: right;
   font-weight: bold;
 }
 
-.smallText .worklist {
-  margin-top: -5px;
+.Degree .date {
+  float: right;
+  font-weight: bold;
+}
+
+.worklist{
+  margin-top: -10px;
+}
+
+.graduateyear{
+  font-weight: bold;
+  font-style: italic;
 }
 
 /* Layout */
 body {
-  background: rgb(204,204,204); 
+  background-color: #f2f2f2; 
   width: 21cm;
   height: 29.7cm;
   margin: 0 auto;
 }
-
-/* Printing */
-page {
-  background: white;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 0.5cm;
-}
-
-page[size="A4"] {  
-  width: 21cm;
-  height: 29.7cm; 
-}
-
-@page {
-  size: 21cm 29.7cm;
-  padding: 0;
-  margin: 0mm;
-  border: none;
-  border-collapse: collapse;
-}
-
-/* End Printing */
 
 .container {
   display: flex;
@@ -102,6 +107,44 @@ page[size="A4"] {
 #viewCount {
   background-color: #333;
   color: #fff;
-  padding: 5px 10px;
+  padding: 9px 18px;
   border-radius: 5px;
+  font-size: 17.5px;
+}
+
+.pdfDownloadButton {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+.pdfDownloadButton button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 17.5px;
+}
+
+.pdfDownloadButton button:hover {
+  background-color: #0056b3;
+}
+
+
+/* Printing */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body {
+    margin: 0.5cm;
+  }
+
+  #counterContainer {
+    display: none;
+  }
 }
