@@ -42,6 +42,7 @@ ul {
 
 hr {
   margin-top: -11px;
+  border-color: black;
 }
 
 .Position {
@@ -78,7 +79,6 @@ hr {
   font-style: italic;
 }
 
-/* Layout */
 body {
   background-color: #f1f1f1; 
   width: 21cm;
@@ -131,7 +131,6 @@ body {
 .pdfDownloadButton button:hover {
   background-color: #0056b3;
 }
-
 
 /* Printing */
 @page {
