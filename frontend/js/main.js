@@ -128,3 +128,86 @@ window.addEventListener('scroll', function() {
 
     lastScrollY = currentScrollY;
 });
+
+// Hamburger Menu Toggle
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburgerMenu');
+    const mainNav = document.querySelector('.main-nav');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('mobile-active');
+        });
+    }
+
+    // Handle dropdown clicks on mobile
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 900) {
+                e.preventDefault();
+                const parent = this.parentElement;
+                parent.classList.toggle('mobile-dropdown-active');
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 900) {
+            if (!e.target.closest('.main-header')) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('mobile-active');
+            }
+        }
+    });
+});
+
+
+// Tech Repair Services - ZIP code checker
+if (document.getElementById('zipCode')) {
+    const validZipCodes = new Set([
+        '90001', '90002', '90003', '90011', '90022', '90023', '90040', '90044', 
+        '90052', '90058', '90059', '90061', '90063', '90201', '90220', '90221', 
+        '90222', '90240', '90241', '90242', '90247', '90248', '90249', '90255', 
+        '90262', '90270', '90280', '90601', '90602', '90603', '90604', '90605', 
+        '90606', '90620', '90621', '90623', '90630', '90638', '90639', '90640', 
+        '90650', '90660', '90670', '90701', '90703', '90706', '90712', '90713', 
+        '90715', '90716', '90720', '90723', '90745', '90746', '90747', '90755', 
+        '90804', '90805', '90806', '90807', '90808', '90810', '90813', '90814', 
+        '90815', '90822', '90840', '91754'
+    ]);
+
+    window.checkServiceRange = function() {
+        const zipInput = document.getElementById('zipCode');
+        const resultDiv = document.getElementById('rangeResult');
+        const zipCode = zipInput.value.trim();
+        
+        if (zipCode.length !== 5 || isNaN(zipCode)) {
+            resultDiv.innerHTML = '<span style="color: #bf0000;">Please enter a valid 5-digit ZIP code.</span>';
+            return;
+        }
+        
+        if (validZipCodes.has(zipCode)) {
+            resultDiv.innerHTML = `
+                <span style="color: #28a745;">
+                    ✓ Great news! You're within our 10-mile service area. Mobile service is available for phone repairs!
+                </span>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                <span style="color: #bf0000;">
+                    Your ZIP code is outside our 10-mile mobile service range. 
+                    However, you can still bring your device to us or we can arrange a drop-off/pick-up!
+                </span>
+            `;
+        }
+    };
+    
+    document.getElementById('zipCode').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkServiceRange();
+        }
+    });
+}

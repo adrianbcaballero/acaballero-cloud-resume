@@ -147,6 +147,44 @@ body {
     color: var(--primary-color);
 }
 
+/* Hamburger Menu */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color-dark);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile menu overlay */
+.main-nav.mobile-active {
+    display: flex !important;
+}
 
 /* ============================================
    HERO SECTION
@@ -459,17 +497,73 @@ body {
    ============================================ */
 
 @media (max-width: 900px) {
-    .main-nav,
-    .action-link-container {
-        display: none;
+    .hamburger-menu {
+        display: flex;
+        position: absolute;
+        left: 20px;
+        top: 15px;
     }
 
     .header-container {
         justify-content: center;
+        position: relative;
     }
 
     .logo-area {
         margin: 0;
+    }
+
+    .main-nav {
+        display: none;
+        position: fixed;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background-color: var(--background-white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 999;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-list li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .action-link-container {
+        display: none;
+        text-align: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-light);
+    }
+
+    .main-nav.mobile-active .action-link-container {
+        display: block;
+    }
+
+    /* Move dropdown to appear below in mobile */
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid var(--border-light);
+        margin-top: 10px;
+        background-color: var(--background-highlight);
+    }
+
+    .has-dropdown:hover .dropdown-menu {
+        display: none;
+    }
+
+    .has-dropdown.mobile-dropdown-active .dropdown-menu {
+        display: block;
     }
 
     .hero-title {
@@ -618,6 +712,28 @@ body {
 @media (max-width: 768px) {
     .symbolic-grid {
         grid-template-columns: 1fr; /* Stack elements vertically on mobile */
+    }
+}
+
+/* Additional mobile responsiveness for mission grid */
+@media (max-width: 768px) {
+    .mission-grid {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    
+    .mission-grid > div {
+        flex-basis: 100% !important;
+    }
+    
+    .mission-statement h2 {
+        font-size: 1.75rem !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-title {
+        white-space: normal !important;
     }
 }
 
