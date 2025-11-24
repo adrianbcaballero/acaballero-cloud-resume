@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <title>Horizon - Social Media Platform</title> 
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo-area">
+                <img src="assets/aeglero-icon.png" alt="Aeglero Logo" class="logo-image">
+                <span class="logo-text">Aeglero</span>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="projectsDropdown">Projects</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="projects_aeglero.html" class="nav-link">Aeglero</a></li>
+                            <li><a href="projects_horizon.html" class="nav-link">Horizon</a></li>
+                            <li><a href="projects_thiswebsite.html" class="nav-link">This Website</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="certifications.html" class="nav-link">Certifications</a></li>
+                    <li><a href="experience.html" class="nav-link">Experience</a></li>
+                </ul>
+            </nav>
+            <div class="action-link-container">
+                <a href="personal_statment.html" class="nav-link">Personal Statement</a> 
+            </div>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- Hero/Introduction Section -->
+        <section class="content-section" style="padding-top: 100px; padding-bottom: 60px; background: linear-gradient(135deg, #bf0000 0%, #C4C4C4 100%); color: white;">
+            <div class="container" style="text-align: center; padding: 2rem 2rem;">
+                <h1 class="section-title" style="margin-bottom: 1rem; color: white; font-size: 3.5rem;">Horizon</h1>
+                <p style="font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.95; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    A full-featured social media platform built for a client seeking to enter the social networking space. Horizon enables users to create posts, comment, like/dislike content, build friend and follower networks, send direct messages, and join communities. Developed using modern full-stack technologies including React, Flask, PostgreSQL, and AWS cloud infrastructure, this platform demonstrates my ability to deliver enterprise-grade social networking features with robust authentication, real-time messaging via WebSockets, and scalable cloud deployment.
+                </p>
+                
+                <!-- Project Resource Buttons -->
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;">
+                    <a href="https://drive.google.com/file/d/1bVodA4NchLV7u6DZ46ehbHTi3YYavRqL/view?usp=sharing" target="_blank" 
+                       style="background: rgba(255,255,255,0.95); color: #bf0000; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                        Video Demonstration
+                    </a>
+                    <a href="https://github.com/Horizon-LLC/Horizon" target="_blank" 
+                       style="background: rgba(255,255,255,0.95); color: #24292e; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                        GitHub Source Code
+                    </a>
+                    <a href="#" target="_blank" 
+                       style="background: rgba(255,255,255,0.95); color: #0077b5; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                        Technical Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Origin Story Section -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 class="section-title">Project Background</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-color-light);">
+                        Horizon was developed as a client project for Edwin Rodriguez, who sought to break into the social media space with a platform offering features comparable to established industry players. The project presented an opportunity to build a complete social networking ecosystem from the ground up, implementing core features like user authentication, content creation and interaction, real-time messaging, friendship networks, and community groups. Working in an agile development environment with regular sprints and face-to-face meetings, I collaborated with a team to deliver a fully functional social media website backed by a robust database architecture. This experience provided hands-on expertise in full-stack development, real-time communication protocols, cloud infrastructure deployment, and the complexities of building scalable social platforms that handle user-generated content, relationships, and interactions.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Architecture Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Technical Architecture & Implementation</h2>
+                
+                <div style="max-width: 1000px; margin: 2rem auto;">
+                    
+                    <!-- Frontend Layer -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Frontend Layer - React User Interface
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Technologies:</strong> React 18, React Router DOM, NextUI Component Library, Custom CSS
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Component Architecture:</strong> Modular, reusable components including UserCard, Post, Comment, AlertModal, PostModal, CommentModal, and specialized profile management components</li>
+                            <li><strong>User Features:</strong> Profile management with bio editing, profile picture uploads, follower/following lists, mutual friends display, and comprehensive post feeds with pagination</li>
+                            <li><strong>Social Interaction:</strong> Like/dislike functionality, nested comment threads, real-time post creation, and dynamic feed filtering (explore vs. following)</li>
+                            <li><strong>Responsive Design:</strong> Mobile-friendly layouts with scroll shadows, card-based interfaces, and intuitive navigation patterns</li>
+                        </ul>
+                    </div>
+
+                    <!-- Backend Layer -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Backend Layer - Flask API & Business Logic
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Technologies:</strong> Flask (Python), SQLAlchemy ORM, Flask-SocketIO, JWT Authentication
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Handler Architecture:</strong> 13 specialized handlers managing users, sessions, following, tags, media, comments, feeds, events, notifications, groups, voting, messaging, and posts</li>
+                            <li><strong>Authentication & Security:</strong> JWT token-based authentication with HS256 encryption, secure session management, password verification, and role-based access control</li>
+                            <li><strong>Real-Time Messaging:</strong> Flask-SocketIO implementation for instant message delivery, chat room management, and live message broadcasting</li>
+                            <li><strong>RESTful API Design:</strong> Comprehensive endpoints for user creation, login, profile management, post CRUD operations, friendship management, commenting, voting, and direct messaging</li>
+                        </ul>
+                    </div>
+
+                    <!-- Database Layer -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Database Layer - PostgreSQL Data Management
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Technologies:</strong> PostgreSQL, SQLAlchemy ORM, Database Migrations
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Schema Design:</strong> Normalized relational database with tables for Users, Posts, Comments, Friendships, Messages, Chatboxes, Groups, Events, Notifications, and Media</li>
+                            <li><strong>Relationship Management:</strong> Complex many-to-many relationships for friendships and followers, one-to-many for user posts/comments, and efficient querying with joins</li>
+                            <li><strong>Data Integrity:</strong> Foreign key constraints, unique constraints (e.g., email uniqueness), server-side timestamps, and validation rules</li>
+                            <li><strong>Query Optimization:</strong> Indexed queries for user lookups, friendship retrieval, and post feeds with filtering capabilities</li>
+                        </ul>
+                    </div>
+
+                    <!-- Infrastructure Layer -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Infrastructure & DevOps - AWS Cloud Deployment
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Technologies:</strong> AWS (Route 53, CloudFront, S3, RDS, Lambda, API Gateway), Git Version Control
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Frontend Hosting:</strong> React application deployed to AWS S3 with CloudFront CDN for low-latency global content delivery</li>
+                            <li><strong>Backend Infrastructure:</strong> Flask API deployed via AWS Lambda for serverless execution, reducing overhead costs and enabling automatic scaling</li>
+                            <li><strong>Database Management:</strong> Amazon RDS (PostgreSQL) with automated backups, high availability configuration, and secure VPC networking</li>
+                            <li><strong>Domain & Routing:</strong> Route 53 for DNS management and domain registration, API Gateway as unified entry point for backend services</li>
+                            <li><strong>Media Storage:</strong> S3 buckets for user-uploaded images and profile pictures with appropriate access controls</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 class="section-title">Core Platform Features</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-color-light); margin-bottom: 2rem;">
+                        Horizon implements a comprehensive suite of social networking features that rival established platforms:
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">User Authentication & Profiles</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Secure registration and login with JWT tokens, customizable profiles with bio editing, profile picture uploads, and comprehensive user information management including security questions.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Content Creation & Interaction</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Create posts with text and images, comment on posts with nested replies, like/dislike content, tag users in posts, and view comprehensive post feeds with pagination and filtering.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Social Networking</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Build friend networks, follow other users, view follower/following lists, discover mutual friends, and manage social connections with add/remove functionality.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Real-Time Messaging</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Direct messaging between users with WebSocket-powered real-time delivery, chat history, chatbox creation, and message threading for seamless conversations.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Groups & Communities</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Create and join groups with public/private/secret privacy settings, group posting, membership management, and admin moderation capabilities.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Notifications & Events</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Real-time notifications for friend requests, likes, comments, mentions, and messages. Event creation and management with user-generated actions and custom events.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testing & Quality Assurance -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Testing & Quality Assurance</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Comprehensive Testing Strategy</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            Horizon underwent rigorous testing across multiple categories to ensure reliability, security, and excellent user experience:
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Backend Testing:</strong> Automated API tests using pytest and unittest, including mock database testing, JWT token validation, and endpoint correctness verification</li>
+                            <li><strong>Frontend Testing:</strong> Component rendering and interaction tests using Jest and React Testing Library to ensure UI correctness and visual accuracy</li>
+                            <li><strong>Test Categories:</strong> Account login/creation, content creation, social interaction, account settings, groups, navigation, searching, and alert modals</li>
+                            <li><strong>Integration Testing:</strong> End-to-end testing of complete user workflows from registration through messaging and content interaction</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Testing Frameworks & Methodologies</h3>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>pytest:</strong> Backend API testing with mock database interactions and edge case validation</li>
+                            <li><strong>unittest:</strong> Unit testing for individual handler functions and business logic verification</li>
+                            <li><strong>Jest:</strong> JavaScript testing framework for React component validation</li>
+                            <li><strong>React Testing Library:</strong> DOM testing utilities for user interaction simulation</li>
+                            <li><strong>unittest.mock:</strong> Database mocking to ensure proper error handling without affecting production data</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Skills Demonstrated -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 class="section-title">Professional Skills Demonstrated</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-color-light); margin-bottom: 2rem;">
+                        Building Horizon provided extensive experience with professional software development practices and technologies:
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Full-Stack Development</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                End-to-end development expertise from React frontend to Flask backend, demonstrating proficiency across the entire web application stack with modern frameworks and best practices.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Database Design & Management</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Complex relational database architecture with SQLAlchemy ORM, handling user relationships, content hierarchies, and real-time messaging data with proper normalization and optimization.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Cloud Infrastructure & DevOps</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                AWS cloud deployment experience with S3, CloudFront, RDS, Lambda, API Gateway, and Route 53, implementing scalable serverless architecture and CDN content delivery.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Real-Time Communication</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                WebSocket implementation with Flask-SocketIO for instant messaging, demonstrating understanding of bidirectional communication protocols and event-driven architecture.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Security & Authentication</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                JWT token-based authentication, secure password handling, session management, and role-based access control, ensuring user data protection and secure API endpoints.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Agile Development & Collaboration</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Sprint-based development with regular team meetings, collaborative code reviews, version control with Git, and iterative feature implementation following agile methodologies.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact & Takeaways -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Project Impact & Key Takeaways</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Delivered Features</h3>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li>Fully functional social media platform with user authentication and profile management</li>
+                            <li>Complete content creation ecosystem: posts, comments, likes, and media uploads</li>
+                            <li>Real-time direct messaging with WebSocket technology</li>
+                            <li>Comprehensive social networking: friends, followers, and mutual connections</li>
+                            <li>Group/community features with privacy controls and moderation</li>
+                            <li>Scalable AWS cloud infrastructure with serverless architecture</li>
+                            <li>Thoroughly tested codebase with automated test suites</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #bf0000 0%, #C4C4C4 100%); padding: 2rem; border-radius: 8px; color: white; margin-bottom: 2rem;">
+                        <h3 style="color: white; margin-bottom: 1rem;">Technical Accomplishments</h3>
+                        <ul style="line-height: 1.8; opacity: 0.95;">
+                            <li><strong>Scalable Architecture:</strong> Designed and implemented a modular handler-based backend that supports easy feature additions and maintenance</li>
+                            <li><strong>Performance Optimization:</strong> Implemented pagination, lazy loading, and optimized database queries for smooth user experience even with large datasets</li>
+                            <li><strong>Security Best Practices:</strong> JWT authentication, password hashing, input validation, and SQL injection prevention through ORM usage</li>
+                            <li><strong>Real-Time Features:</strong> Successfully integrated WebSocket communication for instant messaging without page refreshes</li>
+                            <li><strong>Cloud Deployment:</strong> Leveraged AWS services to create a production-ready, globally accessible platform with CDN delivery</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Professional Growth</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light);">
+                            Horizon represented a significant professional development opportunity, providing hands-on experience with enterprise-scale application development. Working with a real client taught me the importance of gathering requirements, managing expectations, and delivering features iteratively. The agile development process with regular sprints and team collaboration enhanced my ability to work in professional development environments.
+                        </p>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-top: 1rem;">
+                            The project deepened my understanding of full-stack architecture decisions, the complexities of real-time communication, and the challenges of building scalable social platforms. From database schema design to cloud deployment strategies, every aspect of Horizon contributed to my growth as a software engineer capable of delivering production-ready applications.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Adrian Caballero. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

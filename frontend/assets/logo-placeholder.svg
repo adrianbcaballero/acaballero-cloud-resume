@@ -1,0 +1,7 @@
+<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="30" height="30" rx="4" fill="#0066CC"/>
+  
+  <!-- Letter "A" for Aeglero -->
+  <text x="15" y="22" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">A</text>
+</svg>
