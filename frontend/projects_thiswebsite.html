@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <title>This Website - Cloud Resume & Portfolio</title> 
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo-area">
+                <img src="assets/aeglero-icon.png" alt="Aeglero Logo" class="logo-image">
+                <span class="logo-text">Aeglero</span>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="projectsDropdown">Projects</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="projects_aeglero.html" class="nav-link">Aeglero</a></li>
+                            <li><a href="projects_horizon.html" class="nav-link">Horizon</a></li>
+                            <li><a href="projects_thiswebsite.html" class="nav-link">This Website</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="certifications.html" class="nav-link">Certifications</a></li>
+                    <li><a href="experience.html" class="nav-link">Experience</a></li>
+                </ul>
+            </nav>
+            <div class="action-link-container">
+                <a href="personal_statment.html" class="nav-link">Personal Statement</a> 
+            </div>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- Hero/Introduction Section -->
+        <section class="content-section" style="padding-top: 100px; padding-bottom: 60px; background: linear-gradient(135deg, #bf0000 0%, #C4C4C4 100%); color: white;">
+            <div class="container" style="text-align: center; padding: 2rem 2rem;">
+                <h1 class="section-title" style="margin-bottom: 1rem; color: white; font-size: 3.5rem;">This Website</h1>
+                <p style="font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.95; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    A cloud-native portfolio and professional showcase built entirely on AWS infrastructure. What started as my introduction to cloud computing through the Cloud Resume Challenge has evolved into a comprehensive organizational platform highlighting my projects, certifications, and professional experience. The website demonstrates practical AWS skills including S3 static hosting, CloudFront CDN distribution, Route 53 DNS management, certificate management with ACM, and infrastructure as code with Terraform—all deployed in a serverless, highly available architecture.
+                </p>
+                
+                <!-- Project Resource Buttons -->
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;">
+                    <a href="https://github.com/adrianbcaballero/acaballero-cloud-resume" target="_blank" 
+                       style="background: rgba(255,255,255,0.95); color: #24292e; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                        GitHub Source Code
+                    </a>
+                    <a href="#" target="_blank" 
+                       style="background: rgba(255,255,255,0.95); color: #0077b5; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+                        Architecture Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Origin Story Section -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 class="section-title">From Cloud Resume to Professional Portfolio</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-color-light);">
+                        This website began as my first hands-on introduction to cloud computing through the Cloud Resume Challenge—a project designed to teach fundamental AWS services by building a resume website hosted entirely in the cloud. Starting with basic S3 static hosting and CloudFront distribution, I learned core cloud concepts like content delivery networks, DNS management, SSL/TLS certificates, and infrastructure as code. What started as a simple resume quickly evolved into something much more ambitious. Recognizing the need for a comprehensive platform to showcase my growing portfolio of projects, I transformed the site into a full organizational hub featuring detailed project breakdowns, certification displays, professional experience timelines, and a personal statement. The evolution from cloud resume to professional portfolio mirrors my own growth as a developer—from learning cloud fundamentals to confidently deploying production-grade applications on AWS infrastructure. Every section of this website demonstrates practical cloud skills while providing visitors with a complete picture of my technical capabilities and professional journey.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Architecture Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">AWS Cloud Architecture</h2>
+                
+                <div style="max-width: 1000px; margin: 2rem auto;">
+                    
+                    <!-- Frontend Hosting -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Static Website Hosting - Amazon S3
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Service:</strong> Amazon S3 (Simple Storage Service)
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Bucket Configuration:</strong> S3 bucket configured for static website hosting with index.html as the default document</li>
+                            <li><strong>Content Storage:</strong> All HTML, CSS, JavaScript, images, and assets stored as objects in S3 with appropriate MIME types</li>
+                            <li><strong>Access Control:</strong> Bucket policy configured to allow CloudFront origin access, preventing direct public access to S3</li>
+                            <li><strong>Cost Efficiency:</strong> Pay-per-use storage model with no server maintenance, ideal for static content delivery</li>
+                        </ul>
+                    </div>
+
+                    <!-- Content Delivery -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Content Delivery Network - Amazon CloudFront
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Service:</strong> Amazon CloudFront CDN
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Global Distribution:</strong> Content cached at edge locations worldwide for low-latency access from any geographic region</li>
+                            <li><strong>Origin Configuration:</strong> S3 bucket configured as CloudFront origin with Origin Access Identity (OAI) for secure access</li>
+                            <li><strong>HTTPS Enforcement:</strong> CloudFront configured to redirect all HTTP requests to HTTPS for secure connections</li>
+                            <li><strong>Performance Optimization:</strong> Automatic compression, caching policies, and edge location routing for optimal load times</li>
+                            <li><strong>Custom Domain:</strong> CloudFront distribution associated with custom domain name via Route 53 CNAME records</li>
+                        </ul>
+                    </div>
+
+                    <!-- DNS Management -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> DNS & Domain Management - Amazon Route 53
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Service:</strong> Amazon Route 53
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Domain Registration:</strong> Custom domain (acaballero.cloud) registered and managed through Route 53</li>
+                            <li><strong>Hosted Zone Configuration:</strong> Route 53 hosted zone with DNS records pointing to CloudFront distribution</li>
+                            <li><strong>Alias Records:</strong> AWS-specific Alias records for efficient routing to CloudFront without additional DNS lookup costs</li>
+                            <li><strong>Health Checks:</strong> Route 53 health monitoring to ensure website availability and automatic failover if needed</li>
+                        </ul>
+                    </div>
+
+                    <!-- SSL/TLS Certificates -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Security & Encryption - AWS Certificate Manager
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Service:</strong> AWS Certificate Manager (ACM)
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>SSL/TLS Certificate:</strong> Free SSL/TLS certificate provisioned through ACM for HTTPS encryption</li>
+                            <li><strong>Domain Validation:</strong> DNS validation method using Route 53 CNAME records for automatic certificate verification</li>
+                            <li><strong>CloudFront Integration:</strong> Certificate attached to CloudFront distribution for secure content delivery</li>
+                            <li><strong>Automatic Renewal:</strong> ACM handles certificate renewal automatically, eliminating manual certificate management</li>
+                        </ul>
+                    </div>
+
+                    <!-- Infrastructure as Code -->
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;"></span> Infrastructure as Code - Terraform
+                        </h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Technology:</strong> Terraform (HashiCorp Configuration Language)
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Declarative Configuration:</strong> Entire AWS infrastructure defined as code for version control and reproducibility</li>
+                            <li><strong>Resource Management:</strong> Terraform modules for S3 buckets, CloudFront distributions, Route 53 records, and ACM certificates</li>
+                            <li><strong>State Management:</strong> Remote state storage for infrastructure tracking and team collaboration</li>
+                            <li><strong>Automated Deployment:</strong> Infrastructure changes deployed consistently through terraform plan and terraform apply commands</li>
+                            <li><strong>Documentation:</strong> Infrastructure code serves as living documentation of the cloud architecture</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Frontend Development -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 class="section-title">Frontend Design & Development</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Modern Web Technologies</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-bottom: 1rem;">
+                            <strong>Technologies:</strong> HTML5, CSS3, Vanilla JavaScript
+                        </p>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Semantic HTML:</strong> Clean, accessible markup with proper heading hierarchy and semantic elements</li>
+                            <li><strong>Responsive Design:</strong> Mobile-first CSS with flexbox and grid layouts that adapt to any screen size</li>
+                            <li><strong>Custom Styling:</strong> Professional design system with consistent colors, typography, and spacing using CSS custom properties</li>
+                            <li><strong>Interactive Elements:</strong> JavaScript-powered navigation dropdowns, smooth scrolling, and dynamic content loading</li>
+                            <li><strong>Performance Optimization:</strong> Minified CSS/JS, optimized images, and efficient DOM manipulation for fast page loads</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Site Architecture & Organization</h3>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Home/Landing Page:</strong> Professional introduction with hero section and navigation to key areas</li>
+                            <li><strong>Projects Showcase:</strong> Dedicated pages for Aeglero (healthcare EMR), Horizon (social media), and this website with comprehensive technical breakdowns</li>
+                            <li><strong>Certifications Display:</strong> Professional certification badges with credential verification links</li>
+                            <li><strong>Experience Timeline:</strong> Professional work history with detailed role descriptions and accomplishments</li>
+                            <li><strong>Personal Statement:</strong> Career narrative and professional goals section</li>
+                            <li><strong>Consistent Navigation:</strong> Global header and footer with dropdown menus for intuitive site exploration</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Cloud Skills Demonstrated -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">AWS Cloud Skills Demonstrated</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-color-light); margin-bottom: 2rem;">
+                        Building and deploying this website provided hands-on experience with core AWS services and cloud computing concepts:
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Static Website Hosting</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Understanding S3 bucket policies, static website configuration, object storage, and access control mechanisms for serverless web hosting without traditional servers.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Content Delivery Networks</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                CloudFront distribution configuration, edge location caching, origin access identity setup, and global content delivery for improved performance and user experience.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">DNS & Domain Management</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Route 53 hosted zones, DNS record types (A, CNAME, Alias), domain registration, and DNS routing policies for custom domain configuration.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Security & Encryption</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                SSL/TLS certificate provisioning with ACM, HTTPS enforcement, certificate validation methods, and secure communication protocols for encrypted data transmission.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Infrastructure as Code</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Terraform configuration for AWS resources, state management, resource dependencies, and declarative infrastructure deployment for repeatable, version-controlled infrastructure.
+                            </p>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.75rem;">Cloud Architecture Design</h4>
+                            <p style="line-height: 1.7; color: var(--text-color-light);">
+                                Understanding serverless architecture patterns, service integration, cost optimization strategies, and designing for high availability and global reach.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Journey -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 class="section-title">Development Evolution & Iterations</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Version 1.0 - Cloud Resume Challenge</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light);">
+                            The initial version was a straightforward resume website following the Cloud Resume Challenge specifications. It featured basic contact information, education, work experience, and skills sections—all hosted on S3 with CloudFront distribution. This version taught me the fundamentals of AWS services and established the cloud infrastructure foundation.
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Version 2.0 - Portfolio Expansion</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light);">
+                            As my project portfolio grew with Aeglero and Horizon, I expanded the site to include dedicated project pages with detailed technical breakdowns. Added custom navigation with dropdown menus, improved responsive design, and created a consistent visual identity across all pages.
+                        </p>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #bf0000 0%, #C4C4C4 100%); padding: 2rem; border-radius: 8px; color: white; margin-bottom: 2rem;">
+                        <h3 style="color: white; margin-bottom: 1rem;">Current Version - Professional Showcase</h3>
+                        <p style="line-height: 1.7; opacity: 0.95;">
+                            The current iteration represents a complete professional organization platform. Beyond projects, it now includes comprehensive certification displays with verification links, a detailed experience timeline showcasing my volunteer work and professional roles, and a personal statement section. The site has evolved from a simple cloud resume into a comprehensive digital portfolio that effectively communicates my technical capabilities, professional journey, and career aspirations.
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Future Enhancements</h3>
+                        <ul style="line-height: 1.8; color: var(--text-color-light);">
+                            <li><strong>Visitor Analytics:</strong> Implement AWS Lambda and DynamoDB for visitor counter and analytics tracking</li>
+                            <li><strong>CI/CD Pipeline:</strong> GitHub Actions workflow for automated deployment on code changes</li>
+                            <li><strong>Contact Form:</strong> API Gateway + Lambda integration for serverless contact form processing</li>
+                            <li><strong>Blog Section:</strong> Technical writing platform to share cloud learning journey and project insights</li>
+                            <li><strong>Advanced Monitoring:</strong> CloudWatch dashboards for performance metrics and uptime monitoring</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact & Takeaways -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Impact & Professional Value</h2>
+                
+                <div style="max-width: 900px; margin: 2rem auto;">
+                    
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Cloud Computing Foundation</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light);">
+                            This project served as my entry point into cloud computing and AWS. It provided practical, hands-on experience with core AWS services that are fundamental to modern cloud architecture. The knowledge gained from building this website directly translated to my AWS Cloud Practitioner certification and continues to inform my understanding of cloud infrastructure in other projects like Aeglero's planned AWS migration.
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; margin-bottom: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Professional Branding</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light);">
+                            Beyond the technical learning, this website serves as my professional digital presence. It provides potential employers and collaborators with a comprehensive view of my capabilities—from healthcare IT projects to social media platforms to cloud infrastructure. The site demonstrates not just what I've built, but how I communicate technical concepts and present my work professionally.
+                        </p>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Continuous Learning Platform</h3>
+                        <p style="line-height: 1.7; color: var(--text-color-light);">
+                            The website continues to evolve as I learn new technologies and complete new projects. It serves as a living document of my professional growth—each update represents new skills acquired, challenges overcome, and technical milestones achieved. From the initial cloud resume to the current comprehensive portfolio, this project embodies the continuous learning mindset essential in technology careers.
+                        </p>
+                        <p style="line-height: 1.7; color: var(--text-color-light); margin-top: 1rem;">
+                            Most importantly, building and maintaining this website has taught me that cloud computing is not just about services and infrastructure—it's about leveraging technology to solve real problems, create value, and communicate ideas effectively. This understanding informs how I approach every technical project and professional challenge.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 Adrian Caballero. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

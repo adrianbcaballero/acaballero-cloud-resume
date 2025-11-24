@@ -1,0 +1,623 @@
+/* ============================================
+   AEGLERO - Healthcare IT Portfolio Styles
+   ============================================ */
+
+/* Custom CSS Variables for Easy Styling */
+:root {
+    /* Healthcare Brand Colors */
+    --primary-color: #bf0000;        /* Healthcare blue */
+    --primary-dark: #bf0000;         /* Darker blue */
+    --accent-gold: #90b5d0;          /* Radiant gold (Aegle) */
+    
+    /* Text Colors */
+    --text-color-dark: #333333;
+    --text-color-light: #666666;
+    --text-color-white: #FFFFFF;
+    
+    /* Background Colors */
+    --background-white: #FFFFFF;
+    --background-light: #F8F8F8
+    --background-highlight: #F5F5F5;
+    
+    /* Borders */
+    --border-light: #E5E5E5;
+    --border-medium: #CCCCCC;
+    
+    /* Fonts */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
+}
+
+/* ============================================
+   GLOBAL RESET AND BASE STYLES
+   ============================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    /* Pushes all main content down to account for the fixed header height. */
+    padding-top: 50px; 
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    color: var(--text-color-dark);
+    background-color: var(--background-light);
+}
+
+/* ============================================
+   HEADER AND NAVIGATION
+   ============================================ */
+
+.main-header {
+    /* No background or border to keep it clean and transparent */
+    border-bottom: none; 
+    box-shadow: none;
+    
+    /* Change 1: Set position to fixed so it stays in place */
+    position: fixed; 
+    transition: transform 0.3s ease-in-out;
+    
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 3. Class that hides the header */
+.header-hidden {
+    transform: translateY(-100%); 
+}
+
+/* Logo Area */
+.logo-area {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: 30px;
+    flex-shrink: 0;
+}
+
+.logo-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 2px;
+    margin-right: 8px;
+    margin-top: -7px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color-dark);
+    margin-top: -7px;
+}
+
+/* Main Navigation */
+.main-nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+}
+
+.nav-list li {
+    margin: 0 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color-light);
+    font-size: .95rem;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero-section {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--background-highlight) 0%, var(--background-white) 100%);
+    padding-top: 50px;
+    text-align: center;
+}
+
+.hero-container {
+    max-width: 800px;
+    padding: var(--spacing-md);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-color-dark);
+    margin-bottom: var(--spacing-sm);
+}
+
+.hero-subtitle {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
+.hero-tagline {
+    font-size: 1.25rem;
+    color: var(--text-color-light);
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+}
+
+/* View Counter */
+.view-counter {
+    background-color: var(--background-white);
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#viewCount {
+    font-size: 1rem;
+    color: var(--text-color-light);
+    font-weight: 500;
+}
+
+/* Hero CTA Buttons */
+.hero-cta {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-top: var(--spacing-md);
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color-white);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color-white);
+}
+
+/* ============================================
+   CONTENT SECTIONS
+   ============================================ */
+
+.content-section {
+    padding: var(--spacing-xl) var(--spacing-md);
+    margin-top: 0;
+}
+
+.bg-light {
+    background-color: var(--background-white);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color-dark);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+/* Purpose Section */
+.purpose-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text-color-light);
+    text-align: center;
+}
+
+.purpose-content p {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* ============================================
+   CERTIFICATIONS SECTION
+   ============================================ */
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.cert-card {
+    background-color: var(--background-white);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    border: 2px solid var(--border-light);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.cert-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(199,63,30,0.1);
+}
+
+.cert-card h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.cert-card p {
+    color: var(--text-color-light);
+    font-size: 1rem;
+}
+
+/* ============================================
+   PROJECTS SECTION
+   ============================================ */
+
+.project-card {
+    background-color: var(--background-white);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.project-card h3 {
+    font-size: 1.75rem;
+    color: var(--text-color-dark);
+    margin-bottom: var(--spacing-sm);
+}
+
+.project-description {
+    font-size: 1.1rem;
+    color: var(--text-color-light);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-sm);
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.tag {
+    background-color: var(--background-highlight);
+    color: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.project-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
+}
+
+.project-link:hover {
+    color: var(--primary-dark);
+}
+
+/* ============================================
+   EXPERIENCE SECTION
+   ============================================ */
+
+.experience-item {
+    background-color: var(--background-light);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+}
+
+.experience-item h3 {
+    font-size: 1.5rem;
+    color: var(--text-color-dark);
+    margin-bottom: var(--spacing-xs);
+}
+
+.experience-org {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.experience-description {
+    font-size: 1.05rem;
+    color: var(--text-color-light);
+    line-height: 1.7;
+}
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+
+.contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-content p {
+    font-size: 1.15rem;
+    color: var(--text-color-light);
+    margin-bottom: var(--spacing-md);
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.contact-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--primary-dark);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.main-footer {
+    background-color: var(--text-color-dark);
+    color: var(--text-color-white);
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.main-footer p {
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 900px) {
+    .main-nav,
+    .action-link-container {
+        display: none;
+    }
+
+    .header-container {
+        justify-content: center;
+    }
+
+    .logo-area {
+        margin: 0;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .cert-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .content-section {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+}
+
+
+/* ============================================
+   HEADER: DROPDOWN MENU STYLES
+   ============================================ */
+
+/* Parent item must be position: relative for dropdown to position correctly */
+.nav-item {
+    position: relative;
+}
+
+/* Hide the dropdown menu by default */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Position right below the main link */
+    left: 0;
+    list-style: none;
+    background-color: var(--background-white);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-width: 180px;
+    padding: 10px 0;
+    border-radius: 4px;
+    z-index: 1001; /* Ensure it stays above other content */
+    margin-top: 5px; /* Slight gap from the main nav link */
+}
+
+/* Style individual dropdown links */
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu .nav-link {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text-color-dark);
+    font-weight: 400;
+}
+
+.dropdown-menu .nav-link:hover {
+    background-color: var(--background-highlight);
+    color: var(--primary-color);
+}
+
+/* Show dropdown menu on hover */
+.has-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Indicator for dropdowns (optional, small downward arrow) */
+.dropdown-toggle::after {
+    content: ' \25BC'; /* Unicode for a small triangle */
+    font-size: 0.6em;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* 
+   NAMESAKE SECTION
+    */
+.namesake-breakdown h3 {
+    text-align: center;
+}
+
+
+.symbolic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-md);
+    text-align: center;
+}
+
+.symbolic-element {
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    background-color: var(--background-white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.symbolic-element h3 {
+    margin: 1.5rem 0 1rem;
+}
+
+.image-placeholder {
+    height: 200px; /* Standard height for the image area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+.card-image {
+    max-width: 100%; /* Ensures the image doesn't overflow its container horizontally */
+    max-height: 100%; /* Ensures the image doesn't overflow its container vertically */
+    border-radius: 4px; /* Matches the container's rounded corners */
+    object-fit: contain; /* Ensures the entire image is visible, scaling it down if necessary */
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 768px) {
+    .symbolic-grid {
+        grid-template-columns: 1fr; /* Stack elements vertically on mobile */
+    }
+}
+
