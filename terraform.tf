@@ -10,10 +10,4 @@ terraform {
       version = "3.5.1"
     }
   }
-  cloud {
-    organization = "abcaballero"
-    workspaces {
-      name = "acaballero-cloud-resume"
-    }
-  }
 }

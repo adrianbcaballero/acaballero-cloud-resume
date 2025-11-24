@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // --- 1. VIEW COUNTER (UNIQUE VISITOR TRACKING WITH GET/POST) ---
     
-    const API_ENDPOINT = 'https://r05eb4w5b0.execute-api.us-west-1.amazonaws.com/dev/proxy';
+    const API_ENDPOINT = 'https://2whekina0g.execute-api.us-west-1.amazonaws.com/dev/proxy';
     
     // Configuration for visit tracking
     const VISIT_KEY = 'aeglero_has_visited';

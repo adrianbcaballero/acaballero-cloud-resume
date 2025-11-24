@@ -2,10 +2,13 @@ provider "aws" {
   region = "us-west-1"
 }
 
-//creating s3 bucket for branch frontend content"
-resource "aws_s3_bucket" "adriancaballero-branchcontent" {
-  bucket = "adriancaballero-branchcontent"
-}
+
+# OLD NOT USED ANYMORE 
+# ONLY FOR REFERENCE
+# //creating s3 bucket for branch frontend content"
+# resource "aws_s3_bucket" "adriancaballero-branchcontent" {
+#   bucket = "adriancaballero-branchcontent"
+# }
 
 resource "aws_s3_bucket_public_access_block" "adriancaballero-branchcontent" {
   bucket = aws_s3_bucket.adriancaballero-branchcontent.id
@@ -76,8 +79,8 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
       "Resource": [
         "arn:aws:s3:::adriancaballero-branchcontent/*",
         "arn:aws:s3:::adriancaballero-branchcontent",
-        "arn:aws:s3:::www.adriancaballeroresume.com/*",
-        "arn:aws:s3:::www.adriancaballeroresume.com"
+        "arn:aws:s3:::www.aeglero.com/*",
+        "arn:aws:s3:::www.aeglero.com"
       ]
     },
     {
@@ -260,6 +263,61 @@ resource "aws_api_gateway_method" "proxy" {
   rest_api_id   = aws_api_gateway_rest_api.proxy.id
 }
 
+# GET Method for API Gateway
+resource "aws_api_gateway_method" "proxy_get" {
+  authorization = "NONE"
+  http_method   = "GET"
+  resource_id   = aws_api_gateway_resource.proxy.id
+  rest_api_id   = aws_api_gateway_rest_api.proxy.id
+}
+
+resource "aws_api_gateway_integration" "proxy_get" {
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy_get.http_method
+  integration_http_method = "POST"
+  type  = "AWS"
+  uri = aws_lambda_function.update-dynamodb.invoke_arn
+  
+  request_templates = {
+    "application/json" = <<EOF
+{
+  "httpMethod": "GET"
+}
+EOF
+  }
+}
+
+resource "aws_api_gateway_method_response" "proxy_get" {
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy_get.http_method
+  status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "proxy_get" {
+  rest_api_id = aws_api_gateway_rest_api.proxy.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy_get.http_method
+  status_code = aws_api_gateway_method_response.proxy_get.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" =  "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+  depends_on = [
+    aws_api_gateway_method.proxy_get,
+    aws_api_gateway_integration.proxy_get
+  ]
+}
+
 resource "aws_api_gateway_integration" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.proxy.id
   resource_id = aws_api_gateway_resource.proxy.id
@@ -267,6 +325,14 @@ resource "aws_api_gateway_integration" "proxy" {
   integration_http_method = "POST"
   type  = "AWS"
   uri = aws_lambda_function.update-dynamodb.invoke_arn
+  
+  request_templates = {
+    "application/json" = <<EOF
+{
+  "httpMethod": "POST"
+}
+EOF
+  }
 }
 
 resource "aws_api_gateway_method_response" "proxy" {
@@ -311,7 +377,6 @@ resource "aws_api_gateway_integration" "options_integration" {
   rest_api_id             = aws_api_gateway_rest_api.proxy.id
   resource_id             = aws_api_gateway_resource.proxy.id
   http_method             = aws_api_gateway_method.options.http_method
-  integration_http_method = "OPTIONS"
   type                    = "MOCK"
   request_templates = {
     "application/json" = "{\"statusCode\": 200}"
@@ -352,6 +417,7 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [
     aws_api_gateway_integration.proxy,
+    aws_api_gateway_integration.proxy_get,
     aws_api_gateway_integration.options_integration,
   ]
 

@@ -25,7 +25,7 @@ def lambda_handler(event, context):
             
             # Get the current item
             response = table.get_item(
-                Key={"website_id": "adriancaballeroresume.com"}
+                Key={"website_id": "aeglero.com"}
             )
             
             # Extract the current count (default to 0 if item doesn't exist)
@@ -54,7 +54,7 @@ def lambda_handler(event, context):
             logger.info("POST request - incrementing count")
             
             response = table.update_item(
-                Key={"website_id": "adriancaballeroresume.com"},
+                Key={"website_id": "aeglero.com"},
                 UpdateExpression="set access_count = if_not_exists(access_count, :start) + :increase",
                 ExpressionAttributeValues={":start": 0, ":increase": 1},
                 ReturnValues="UPDATED_NEW",
