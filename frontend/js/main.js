@@ -7,6 +7,56 @@
 let lastScrollY = 0;
 const header = document.querySelector(".main-header");
 
+// --- LOAD COMMON HEAD TEMPLATE ---
+async function loadHeadTemplate() {
+    try {
+        const response = await fetch('includes/head-template.html');
+        if (!response.ok) {
+            throw new Error('Failed to load head template');
+        }
+        const html = await response.text();
+        
+        // Create temporary container to parse the HTML
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        
+        // Get all elements from the template
+        const elements = temp.querySelectorAll('meta, link, script');
+        
+        // Insert each element into the document head
+        elements.forEach(element => {
+            // For meta tags, check if one with the same name/property already exists
+            if (element.tagName === 'META') {
+                const name = element.getAttribute('name') || element.getAttribute('property');
+                if (name) {
+                    const existing = document.querySelector(`meta[name="${name}"], meta[property="${name}"]`);
+                    // Only add if it doesn't exist (page-specific meta tags take priority)
+                    if (!existing) {
+                        document.head.appendChild(element.cloneNode(true));
+                    }
+                } else {
+                    // Meta tag without name/property (like charset) - add if not exists
+                    const charset = element.getAttribute('charset');
+                    if (charset && !document.querySelector('meta[charset]')) {
+                        document.head.appendChild(element.cloneNode(true));
+                    }
+                }
+            } else {
+                // For link and script tags, always append (they can have duplicates or load order matters)
+                document.head.appendChild(element.cloneNode(true));
+            }
+        });
+        
+        console.log('Common head template loaded successfully');
+    } catch (error) {
+        console.error('Error loading head template:', error);
+        // Fail silently - page will still work without common head elements
+    }
+}
+
+// Load head template immediately
+loadHeadTemplate();
+
 document.addEventListener('DOMContentLoaded', function() {
     
     // --- 1. VIEW COUNTER (UNIQUE VISITOR TRACKING WITH GET/POST) ---
